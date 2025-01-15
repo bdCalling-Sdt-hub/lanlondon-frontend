@@ -1,0 +1,27 @@
+.mySwiper {
+  width: 100%;
+  overflow: hidden;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  &::after {
+    display: none;
+  }
+}
+
+
+.swiper-button-prev {
+  height: 40px !important;
+  width: 40px !important;
+  border-radius: 100%;  
+  left: -20px !important;
+}
+
+.swiper-button-next {
+  height: 40px !important;
+  width: 40px !important;
+  border-radius: 100%;  
+  right: -20px !important;
+}
+
