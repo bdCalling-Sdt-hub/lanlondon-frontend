@@ -19,7 +19,7 @@ const Navbar = () => {
 
     return (
         <div className="bg-black text-white w-full">
-        <div className="navbar flex  py-4 container  justify-between items-center relative">
+        <div className="navbar flex  py-6 container  justify-between items-center relative">
           {/* Mobile menu toggle */}
           <button
             className="lg:hidden z-50"
@@ -33,7 +33,7 @@ const Navbar = () => {
           {/* Nav Menu */}
           <div
             ref={menuRef}
-            className={`absolute lg:relative top-16 left-0 lg:top-0 border border-gray-700 lg:left-auto w-full lg:w-auto lg:flex flex-col lg:flex-row bg-gray-800 lg:rounded-full lg:px-16 shadow-lg lg:shadow-none p-5 lg:p-0 space-y-4 lg:space-y-0 lg:space-x-6 transition-all duration-300 z-50 ${
+            className={`absolute lg:relative top-16 left-0 lg:top-0 border border-gray-400 lg:left-auto w-full lg:w-auto lg:flex flex-col lg:flex-row bg-[#262729] lg:rounded-full lg:px-6 shadow-lg lg:shadow-none p-5 lg:p-0 space-y-4 lg:space-y-0 lg:space-x-6 transition-all duration-300 z-50 text-[16px] ${
               isMenuOpen ? "block" : "hidden"
             }`}
           >
@@ -43,7 +43,7 @@ const Navbar = () => {
                 return (
                   <div
                     key={index}
-                    className="nav-link flex items-center justify-center flex-col px-3 py-1"
+                    className="nav-link flex items-center justify-center flex-col px-3 "
                   >
                     {option.label}
                   </div>

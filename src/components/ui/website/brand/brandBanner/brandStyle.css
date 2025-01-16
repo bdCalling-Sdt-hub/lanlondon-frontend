@@ -1,6 +1,7 @@
-.bannerBg {
-    background-image: url("/banner.svg");
+.brandBannerBg {
+    background-image: url("/brandBannerbg.svg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
   }
+  

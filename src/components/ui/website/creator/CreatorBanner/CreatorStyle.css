@@ -1,6 +1,7 @@
-.bannerBg {
-    background-image: url("/banner.svg");
+.creatorBannerBg {
+    background-image: url("/creatorBannerbg.svg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
   }
+  

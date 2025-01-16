@@ -1,19 +1,16 @@
 import { Check } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
+import "./brandStyle.css"; 
+import { Urbanist } from 'next/font/google'; 
 
+const urbanist = Urbanist({ subsets: ["latin"], weight: "400" });
 const BrandBanner = () => {
     return (
-        <div>
-            <section className="relative overflow-hidden bg-white py-24">
-      {/* Background Pattern */}
-      <div 
-        className="absolute inset-0" 
-        style={{
-          backgroundImage: 'linear-gradient(-45deg, transparent 46%, #E5E7EB 46%, #E5E7EB 54%, transparent 54%)',
-          backgroundSize: '20px 20px'
-        }}
-      />
+        <div className={ `${urbanist.className}`}>
+            <section className={`relative brandBannerBg  py-24`}>
+            <div className="absolute inset-0 bg-gray-300 opacity-20 z-0"></div>
+
       
       <div className="container relative mx-auto px-4">
         <div className="flex items-center justify-between">
@@ -54,7 +51,7 @@ const BrandBanner = () => {
                        <div className='font-medium text-[30px]'>   {item.title}  </div>
                          
                          </div>
-                    <p className="text-sm text-[#2A2A2A] text-[20px] ms-6">{item.description}</p>
+                    <p className="text-[20px] text-[#2A2A2A] font-medium ms-6">{item.description}</p>
                   </div>
                 </div>
               ))}
