@@ -13,7 +13,7 @@ const Navbar = () => {
     const navOptions = [
       { label: "I'm a Brand", path: "/brand" },
       { label: "I'm a Creator", path: "/creator" },
-      { label: "Contact Us", path: "/contactUs" },
+      { label: "Contact Us", path: "/contact" },
     ]; 
 
 

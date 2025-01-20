@@ -1,8 +1,8 @@
 "use client"
 import {  Form, Input } from "antd";
 import { useRouter } from "next/navigation";
-import React from "react";
-
+import React from "react"; 
+import "../VerifyOtp/OtpStyle.css"
 const ForgetPassword = () => { 
     const router  = useRouter()
 
@@ -14,7 +14,7 @@ const ForgetPassword = () => {
     };
   
     return (
-        <div>
+        <div className="bg-white rounded-lg shadow-2xl p-[30px] pt-[55px] w-[600px] ">
 
         <div className="text-center mb-4">
           <h1 className="text-[25px] font-semibold ">Forgot Password ?</h1>
@@ -37,7 +37,7 @@ const ForgetPassword = () => {
               <Input
                 placeholder="Enter your email address"
                 style={{
-                  height: 40,
+                  height: 48,
                   border: "1px solid #d9d9d9",
                   outline: "none",
                   boxShadow: "none"
@@ -46,22 +46,12 @@ const ForgetPassword = () => {
             </Form.Item>
 
           <Form.Item>
-            <button
-             
-              type="submit"
-              style={{
-                width: '100%',
-                height: 45,
-                color: "white",
-                fontWeight: "400px",
-                fontSize: "18px",
-           
-                marginTop: 20
-              }}
-              className="flex items-center justify-center bg-primary rounded-lg"
-            >
-             Send OTP
-            </button>
+          <button 
+            type="submit"
+                className="w-full py-4 rounded-full   text-[20px] text-white leading-6 font-medium shadow-sm bg-black mt-5 "
+
+              >  Send OTP
+              </button>
           </Form.Item>
         </Form>
     </div>

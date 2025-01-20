@@ -1,7 +1,7 @@
 "use client";
 
 import TextInput from "@/components/shared/TextInput";
-import { Checkbox, ConfigProvider, Form, Input } from "antd";
+import { Checkbox, Form, Input } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -23,32 +23,30 @@ const Register: React.FC = () => {
     router.push(`/verify-otp?email=${values.email}`);
   };
 
-  return (
+  return ( 
+    <div className="grid grid-cols-1 md:grid-cols-2  " >
+
     <div>
-      <div className="mb-6">
-        <h1 className="text-[25px] font-semibold mb-2">Register Now</h1>
-        <p className="text-[#11D279]">
-          To proceed with your application, we first need some information from
-          you
-        </p>
+      <div className=" mb-6">
+        <h1 className="text-[48px] font-semibold mb-2 ">Join Us Now</h1>
+        <p className="text-[#262626] text-[32px] w-[450px]"> Create your campaign and boost your growth Faster</p>
+
+        <img src="/auth.png" alt="" className="h-[500px] w-[500px]" />
       </div>
-      <ConfigProvider
-        theme={{
-          token: {
-            borderRadius: 0,
-          },
-          components: {
-            Input: {
-            //   borderColor: "#d9d9d9",  
-              hoverBorderColor: "#d9d9d9",
-            },
-          },
-        }}
-      >
-        <Form onFinish={onFinish} layout="vertical">
-          <TextInput name="name" label="Full Name" />
+    </div>
+
+    <div>
+      <div className=" bg-white  rounded-lg w-[600px]  shadow-2xl p-[30px] pt-[55px] ">
+        <p className="text-[32px] font-semibold pb-4">Sign Up</p>
+        <Form onFinish={onFinish} layout="vertical"> 
+
+          <div className=" grid grid-cols-2 gap-3 w-full"> 
+
+          <TextInput name="firstName" label="First Name" />
+          <TextInput name="lastName" label="Last Name" />
+          </div>
           <TextInput name="email" label="Email" />
-          <TextInput name="contact" label="Contact Number" />
+          <TextInput name="contact" label="Phone Number" />
 
           <Form.Item
             name="password"
@@ -59,43 +57,13 @@ const Register: React.FC = () => {
                 message: "Please enter your password!",
               },
             ]}
-            className="mb-5"
+            className="mb-3"
           >
             <Input.Password
               placeholder="Enter password"
               className="border border-gray-300 h-[50px] bg-white rounded-lg"
             />
           </Form.Item>
-
-          <Form.Item
-            name="confirm_password"
-            label="Confirm Password"
-            dependencies={["password"]}
-            hasFeedback
-            rules={[
-              {
-                required: true,
-                message: "Please confirm your password!",
-              },
-              ({ getFieldValue }) => ({
-                validator(_, value) {
-                  if (!value || getFieldValue("password") === value) {
-                    return Promise.resolve();
-                  }
-                  return Promise.reject(
-                    new Error("The passwords do not match!")
-                  );
-                },
-              }),
-            ]}
-            className="mb-10"
-          >
-            <Input.Password
-              placeholder="Confirm password"
-              className="border border-gray-300 h-[50px] bg-white rounded-lg"
-            />
-          </Form.Item>
-
           <Form.Item
             name="agree"
             valuePropName="checked"
@@ -115,23 +83,25 @@ const Register: React.FC = () => {
           </Form.Item>
 
           <Form.Item>
-            <button
-              type="submit"
-              className="w-full h-[45px] text-white font-medium text-lg bg-primary rounded-lg flex items-center justify-center mt-4"
-            >
-              Sign up
-            </button>
+          <button 
+            type="submit"
+                className="w-full py-4 rounded-full   text-[20px] text-white leading-6 font-medium shadow-sm bg-black mt-2 "
+
+              >Sign Up
+              </button>
           </Form.Item>
         </Form>
-      </ConfigProvider>
 
-      <div className="flex items-center justify-center gap-1 py-4">
-        <p className="text-[#636363]">Have an account?</p>
-        <Link href="/login" className="text-[#1854F9] font-semibold">
-          Log in
-        </Link>
+        <div className=" flex items-center justify-center gap-1 py-2">
+          <p className="text-[#636363]">Already have an account?  </p>
+          <Link href="/login" className="text-[#1854F9] font-semibold underline underline-offset-4" > Log in</Link>
+        </div>
       </div>
+
+
     </div>
+  </div>
+   
   );
 };
 

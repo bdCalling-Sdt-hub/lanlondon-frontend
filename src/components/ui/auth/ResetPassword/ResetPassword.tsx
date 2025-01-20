@@ -1,5 +1,5 @@
 "use client"
-import { Button, Form, Input } from "antd";
+import {  Form, Input } from "antd";
 import { useRouter } from "next/navigation";
 import React from "react";
 
@@ -12,10 +12,11 @@ const ResetPassword = () => {
     }; 
 
     return (
-        <div>
+        <div className="bg-white rounded-lg shadow-2xl p-[30px] pt-[55px] w-[600px]">
 
         <div className=" mb-6">
-          <h1 className="text-[25px] font-semibold text-primary ">Reset Password</h1>
+          <h1 className="text-[25px] font-semibold text-black text-center mb-4">Verification Process</h1> 
+          <p className="text-center ">Fill in the information below to proceed onward.</p>
         </div>
 
         <Form
@@ -104,20 +105,12 @@ const ResetPassword = () => {
       
 
             <Form.Item style={{marginBottom: 0}}>
-            <Button
-              htmlType="submit"
-              style={{
-                width: '100%',
-                height: 45,
-                color: "white",
-                fontWeight: "400px",
-                fontSize: "18px",
-                background: "#0a2369",
-                marginTop: 20
-              }}
-            >
-             Update
-            </Button>
+            <button 
+            type="submit"
+                className="w-full py-4 rounded-full   text-[20px] text-white leading-6 font-medium shadow-sm bg-black mt-5 "
+
+              > Update
+              </button>
           </Form.Item>
 
 

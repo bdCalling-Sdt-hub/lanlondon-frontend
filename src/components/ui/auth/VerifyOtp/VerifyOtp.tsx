@@ -1,9 +1,9 @@
 "use client"
-import { Button, Form, Typography } from "antd";
+import {  Form, Typography } from "antd";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react"
 import OTPInput from "react-otp-input";
-
+import "./OtpStyle.css"
 const { Text } = Typography;
 
 const VerifyOtp = () => { 
@@ -33,12 +33,11 @@ const VerifyOtp = () => {
   
     };
     return (
-        <div>
+        <div className="bg-white rounded-lg shadow-2xl p-[30px] pt-[55px] w-[600px]">
 
         <div className=" mb-6">
-          <h1 className="text-[25px] font-semibold mb-6 text-primary ">Verification code</h1>
-          <p className=" ">We&apos;ll send a verification code to your email. Check your inbox and
-            enter the code here.</p>
+          <h1 className="text-[25px] font-semibold mb-4 text-black text-center ">Verification code</h1>
+          <p className="text-center ">Fill in the information below to proceed onward.</p>
         </div>
 
 
@@ -78,20 +77,12 @@ const VerifyOtp = () => {
           </div>
 
           <Form.Item style={{marginBottom: 0}}>
-            <Button
-              htmlType="submit"
-              style={{
-                width: "100%",
-                height: 40,
-                border: "1px solid #d9d9d9",
-                outline: "none",
-                boxShadow: "none",
-                background: "#0A2369",
-                color: "white"
-              }}
-            >
-            Verify
-            </Button>
+          <button 
+            type="submit"
+                className="w-full py-4 rounded-full   text-[20px] text-white leading-6 font-medium shadow-sm bg-black mt-5 "
+
+              >  verify
+              </button>
           </Form.Item>
         </Form>
     </div>

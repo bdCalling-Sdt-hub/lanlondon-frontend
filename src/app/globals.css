@@ -2,3 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+.ant-menu-item:hover {
+    background-color: #C1FF72 !important;
+    color: black !important;
+  }
+  
+  .ant-menu-item-selected {
+    background-color: #C1FF72 !important;
+    color: black !important;
+  }
+  

@@ -1,40 +1,51 @@
 "use client"
 
 import TextInput from "@/components/shared/TextInput";
-import {  Checkbox, Form, Input } from "antd";
+import { Checkbox, Form, Input } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { FaFacebook } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 
-const Login = () => { 
-    const router = useRouter()
+const Login = () => {
+  const router = useRouter()
 
 
-    const onFinish = async(values:{email:string , password:string}) => { 
-      console.log(values);
-  
-            router.push("/")
-          
-     
-    }; 
+  const onFinish = async (values: { email: string, password: string }) => {
+    console.log(values);
 
-    return (
-        <div 
-    >
+    router.push("/")
+
+
+  };
+
+  return ( 
+    <div className="grid grid-cols-1 md:grid-cols-2  bg-[#f9bdf5] " >
+
+      <div>
         <div className=" mb-6">
-          <h1 className="text-[25px] font-semibold mb-2">Log in to your account</h1>
-          <p className="text-[#11D279]"> Please enter your email and password to continue</p>
-        </div>
-        <Form
-          onFinish={onFinish}
-          layout="vertical"
-        >
+          <h1 className="text-[48px] font-semibold mb-2 ">Join Us Now</h1>
+          <p className="text-[#262626] text-[32px] w-[450px]"> Create your campaign and boost your growth Faster</p>
 
-          <TextInput name={"email"} label={"Email"} />
+          <img src="/auth.png" alt="" className="h-[500px] w-[500px]" />
+        </div>
+      </div>
+
+      <div>
+        <div className=" bg-white  rounded-lg w-[600px]  shadow-2xl p-[30px] pt-[55px] ">
+          <p className="text-[32px] font-semibold pb-4">Sign In</p>
+          <Form
+            onFinish={onFinish}
+            layout="vertical"
+            className=""
+          >
+
+            <TextInput name={"email"} label={"Email"} />
 
             <Form.Item
               name="password"
-              label={<p>Password</p>}
+              label={<p className="text-[16px] text-[#666666]">Password</p>}
               rules={[
                 {
                   required: true,
@@ -46,7 +57,7 @@ const Login = () => {
                 type="password"
                 placeholder="Enter your password"
                 style={{
-                  height: 40,
+                  height: 48,
                   border: "1px solid #d9d9d9",
                   outline: "none",
                   boxShadow: "none"
@@ -55,45 +66,58 @@ const Login = () => {
             </Form.Item>
 
             <div className="flex items-center justify-between">
-              <Form.Item style={{marginBottom: 0}} name="remember" valuePropName="checked">
+              <Form.Item style={{ marginBottom: 0 }} name="remember" valuePropName="checked">
                 <Checkbox>Remember me</Checkbox>
               </Form.Item>
 
               <a
-                className="login-form-forgot text-primary font-semibold"
+                className="login-form-forgot text-[#007BC8] font-semibold"
                 href="/forgot-password"
               >
                 Forgot password
               </a>
+            </div>
+
+            <div className="w-full  space-y-4 mt-3">
+              <button
+                className="w-full flex items-center justify-center gap-3 py-4 rounded-full  text-black border-2 border-black text-[20px] hover:text-white leading-6 font-medium shadow-sm hover:bg-black "
+
+              >
+                <span> <FcGoogle size={24} /></span>
+                <span>  Continue with Google </span>
+              </button>
+
+              <button
+                className="w-full flex items-center justify-center gap-3 py-4 rounded-full  text-black border-2 border-black text-[20px] hover:text-white leading-6 font-medium shadow-sm hover:bg-black "
+
+              >
+                <span> <FaFacebook size={24} /></span>
+                <span>  Continue with Facebook </span>
+              </button>
+            </div>
+
+            <Form.Item style={{ marginBottom: 0 }}>
+            <button 
+            type="submit"
+                className="w-full py-4 rounded-full   text-[20px] text-white leading-6 font-medium shadow-sm bg-black mt-5 "
+
+              >Sign In
+              </button>
+            </Form.Item>
+
+
+          </Form>
+
+          <div className=" flex items-center justify-center gap-1 py-4">
+            <p className="text-[#636363]">Don’t have any account?</p>
+            <Link href="/register" className="text-[#1854F9] font-semibold underline underline-offset-4" > Create Account</Link>
           </div>
-
-          <Form.Item style={{marginBottom: 0}}>
-            <button
-              type="submit"
-              style={{
-                width: '100%',
-                height: 45,
-                color: "white",
-                fontWeight: "400px",
-                fontSize: "18px",
-           
-                marginTop: 20
-              }}
-              className="flex items-center justify-center bg-primary rounded-lg"
-            >
-              {/* {isLoading? < Spinner/> : "Sign in"} */} Sign in
-            </button>
-          </Form.Item>
-
-          
-        </Form> 
-
-        <div className=" flex items-center justify-center gap-1 py-4">
-            <p className="text-[#636363]">Don’t have any account?</p> 
-            <Link href="/register" className="text-[#1854F9] font-semibold" > Sign Up</Link>
         </div>
+
+
+      </div>
     </div>
-    );
+  );
 };
 
 export default Login;
