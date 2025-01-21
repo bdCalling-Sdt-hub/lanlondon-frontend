@@ -2,15 +2,18 @@
 
 import { Menu } from 'antd';
 import React, { useEffect, useMemo, useState } from 'react';
-import { MdOutlineCategory } from 'react-icons/md';
+import { MdOutlineFavoriteBorder } from 'react-icons/md';
 import { AiOutlineDashboard } from 'react-icons/ai';
-import { HiUserGroup, HiUsers } from 'react-icons/hi2';
-import { TbDatabaseDollar } from 'react-icons/tb';
 import { IoIosLogOut } from 'react-icons/io';
 import { IoSettingsOutline } from 'react-icons/io5';
-import { BiSolidCategory } from 'react-icons/bi';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
+import { LuMessagesSquare } from 'react-icons/lu';
+import { FiBook } from 'react-icons/fi';
+import { RxCalendar } from 'react-icons/rx';
+import { BsCardChecklist } from 'react-icons/bs';
+import { LiaMoneyBillSolid } from 'react-icons/lia';
+import { FaCampground } from 'react-icons/fa';
 
 const Sidebar = () => {
   const path = usePathname();
@@ -28,34 +31,39 @@ const Sidebar = () => {
         label: <Link href="/brand-home">Campaign</Link>,
       },
       {
-        key: '/earnings',
-        icon: <TbDatabaseDollar size={24} />,
-        label: <Link href="/earnings">Earnings</Link>,
+        key: '/favorites',
+        icon: <MdOutlineFavoriteBorder size={24} />,
+        label: <Link href="/favorites">Favorites</Link>,
       },
       {
-        key: '/artists',
-        icon: <HiUsers size={24} />,
-        label: <Link href="/artists">Artists</Link>,
+        key: '/inbox',
+        icon: <LuMessagesSquare size={24} />,
+        label: <Link href="/inbox">Inbox</Link>,
       },
       {
-        key: '/users',
-        icon: <HiUserGroup size={24} />,
-        label: <Link href="/users">User</Link>,
+        key: '/applicants',
+        icon: <FiBook size={24} />,
+        label: <Link href="/applicants">Applicants</Link>,
       },
       {
-        key: '/category',
-        icon: <MdOutlineCategory size={24} />,
-        label: <Link href="/category">Category</Link>,
+        key: '/calender',
+        icon: <RxCalendar size={24} />,
+        label: <Link href="/calender">Calender</Link>,
       },
       {
-        key: '/sub-category',
-        icon: <BiSolidCategory size={24} />,
-        label: <Link href="/sub-category">Sub Category</Link>,
+        key: '/todo',
+        icon: <BsCardChecklist size={24} />,
+        label: <Link href="/todo">To-Do</Link>,
       },
       {
-        key: '/events',
-        icon: <MdOutlineCategory size={24} />,
-        label: <Link href="/events">Events</Link>,
+        key: '/wallet',
+        icon: <LiaMoneyBillSolid size={24} />,
+        label: <Link href="/wallet">Wallet</Link>,
+      },
+      {
+        key: '/add-campaign',
+        icon: <FaCampground size={24} />,
+        label: <Link href="/add-campaign">Add Campaign</Link>,
       },
       {
         key: 'subMenuSetting',
@@ -63,31 +71,24 @@ const Sidebar = () => {
         label: 'Settings',
         children: [
           {
-            key: '/banner',
-            label: <Link href="/banner">Banner</Link>,
-          },
+            key: '/profile',
+            label: <Link href="/profile">Profile</Link>,
+          }, 
           {
-            key: '/about-us',
-            label: <Link href="/about-us">About Us</Link>,
-          },
+            key: '/support',
+            label: <Link href="/support">Support</Link>,
+          }, 
           {
-            key: '/terms-and-conditions',
-            label: <Link href="/terms-and-conditions">Terms And Condition</Link>,
+            key: '/business-info',
+            label: <Link href="/business-info">Business Information</Link>,
           },
-          {
-            key: '/privacy-policy',
-            label: <Link href="/privacy-policy">Privacy Policy</Link>,
-          },
-          {
-            key: '/change-password',
-            label: <Link href="/change-password">Change Password</Link>,
-          },
+  
         ],
       },
       {
         key: '/login',
         icon: <IoIosLogOut size={24} />,
-        label: <Link href="/events">Events</Link>,
+        label: <Link href="/login">Log Out</Link>,
       },
     ],[]
    

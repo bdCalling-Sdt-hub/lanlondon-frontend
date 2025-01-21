@@ -20,8 +20,8 @@ const layout = ({children}: {children: React.ReactNode}) => {
                         <DashboardHeader/>
                     </div>
     
-                    <div className='bg-[#F6F6F6] p-6 h-[calc(100vh-83px)]'>
-                        <div className='h-full overflow-y-auto rounded-md  p-6'>
+                    <div className='bg-[#F6F6F6] p-4 h-[calc(100vh-83px)]'>
+                        <div className='h-full overflow-y-auto rounded-md  '>
                         {children}
                         </div>
                     </div>

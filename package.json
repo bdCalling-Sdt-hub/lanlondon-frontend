@@ -11,6 +11,7 @@
   "dependencies": {
     "@ant-design/nextjs-registry": "^1.0.2",
     "antd": "^5.22.2",
+    "jodit-react": "^5.0.10",
     "lucide-react": "^0.471.1",
     "next": "^14.2.15",
     "react": "^18",
