@@ -5,7 +5,7 @@ import "./globals.css";
 
 
 export const metadata: Metadata = {
-  title: "Tweet",
+  title: "Creator Briefs",
 };
 
 export default function RootLayout({
