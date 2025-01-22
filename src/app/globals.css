@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities; 
+
 
 .ant-menu-item:hover {
     background-color: #C1FF72 !important;
@@ -39,3 +40,11 @@
     height: 550px !important;
   } 
   
+  .rbc-event {
+    margin-top: 5px; /* Adjust vertical spacing */
+    margin-left: 10px; /* Adjust horizontal spacing */
+  }
+  
+  .rbc-event-content {
+    text-align: center; /* Align text */
+  }

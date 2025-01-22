@@ -25,7 +25,8 @@ const Notifications = () => {
                                         borderRadius:"100%",
                                         border:"2px solid gray"
                                     }} 
-                                    src='https://img.freepik.com/free-photo/everything-is-okay-cheerful-friendly-looking-caucasian-guy-with-moustache-beard-raising-hand-with-ok-great-gesture-giving-approval-like-having-situation-control_176420-22386.jpg'
+                                    src='https://img.freepik.com/free-photo/everything-is-okay-cheerful-friendly-looking-caucasian-guy-with-moustache-beard-raising-hand-with-ok-great-gesture-giving-approval-like-having-situation-control_176420-22386.jpg' 
+                                    alt=''
                                 />
                                 <div>
                                     <p><span>Sanchez haro manuel</span> start a new trip at 5pm. Trip No.56. Trip started from Mexico city</p>

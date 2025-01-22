@@ -8,7 +8,7 @@ import logo5 from "@/assets/logo5.png";
 import Image from 'next/image';
 import { Poppins, Urbanist } from 'next/font/google';
 import "./JoinAs.css";
-const urbanist = Urbanist({ subsets: ["latin"], weight: "400" });
+const urbanist = Urbanist({ subsets: ["latin"], weight: ["400","500" , "600" ,"700", "800", "900"] });
 const poppins = Poppins({ subsets: ["latin"], weight: "400" });
 
 const JoinAs = () => {
@@ -35,15 +35,15 @@ const JoinAs = () => {
       <div className="container relative mx-auto flex items-center justify-between px-4 py-[110px]">
         {/* Left Content */}
         <div className="w-full max-w-2xl pr-8">
-          <span className="mb-4 inline-block text-[24px] font-medium text-gray-600">
+          <span className="mb-4 inline-block text-[24px] font-[600] text-gray-600">
             — Be the Part of the Community
           </span>
           
-          <h2 className={`mb-6 text-[48px] font-bold leading-tight text-gray-900 ${urbanist.className}` }>
+          <h2 className={`mb-6 text-[48px] font-[500] leading-tight text-gray-900 ${urbanist.className}` }>
             Join as Influencer & Earn
           </h2>
           
-          <p className={`mb-8 text-lg leading-relaxed text-gray-600 font-semibold ${poppins.className}`}>
+          <p className={`mb-8 text-lg leading-relaxed text-gray-600 font-[500] ${poppins.className}`}>
             At Creator Brief, we help bands create impactful campaigns and track their success with a powerful dashboard. Customize your promotions, monitor real-time analytics, and understand your audience like never before. From tracking engagement to optimizing your reach, our platform gives you the insights to grow your fanbase and amplify your music&apos;s impact.
           </p>
 

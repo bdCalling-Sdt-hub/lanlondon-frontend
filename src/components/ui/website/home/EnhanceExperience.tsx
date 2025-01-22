@@ -33,7 +33,7 @@ const EnhanceExperience = () => {
                         Discover a whole new level of convenience with our mobile app. From browsing our delectable menu to securing exclusive deals, it&apos;s your gateway to a world of culinary delights. Download now and elevate your dining experience with just a tap.
                         </p>
 
-                        <div className="flex flex-wrap items-center gap-4 md:gap-6 pb-12">
+                        <div className="flex flex-wrap items-center gap-4 md:gap-6 pb-16">
                             <a
                                 href="https://play.google.com/store"
                                 className="group relative inline-flex items-center justify-center bg-black text-white h-12 px-4 rounded-lg transition-transform hover:scale-105 active:scale-100"
@@ -68,7 +68,7 @@ const EnhanceExperience = () => {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-x-7 lg:gap-y-0 gap-y-4">
                 <div className="text-center">
                   <div className="text-white lg:text-[40px] text-[28px]  font-bold">100+</div>
-                  <div className="text-white lg:text-[20px] text-[18px] font-normal ">Food Menu</div>
+                  <div className="text-white lg:text-[20px] text-[18px] font-normal ">Views</div>
                 </div>
                 <div className="text-center">
                   <div className="text-white lg:text-[40px] text-[28px]   font-bold">100+</div>

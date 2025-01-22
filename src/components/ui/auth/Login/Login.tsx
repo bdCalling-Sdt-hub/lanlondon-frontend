@@ -15,7 +15,7 @@ const Login = () => {
   const onFinish = async (values: { email: string, password: string }) => {
     console.log(values);
 
-    router.push("/")
+    router.push("/brand-home")
 
 
   };
@@ -100,7 +100,7 @@ const Login = () => {
             <button 
             type="submit"
                 className="w-full py-4 rounded-full   text-[20px] text-white leading-6 font-medium shadow-sm bg-black mt-5 "
-
+ 
               >Sign In
               </button>
             </Form.Item>

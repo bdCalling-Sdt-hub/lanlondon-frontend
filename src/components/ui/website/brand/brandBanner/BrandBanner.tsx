@@ -4,7 +4,7 @@ import React from 'react';
 import "./brandStyle.css"; 
 import { Urbanist } from 'next/font/google'; 
 
-const urbanist = Urbanist({ subsets: ["latin"], weight: "400" });
+const urbanist = Urbanist({ subsets: ["latin"], weight: ["400", "500", "600", "700"]});
 const BrandBanner = () => {
     return (
         <div className={ `${urbanist.className}`}>
@@ -13,9 +13,9 @@ const BrandBanner = () => {
 
       
       <div className="container relative mx-auto px-4">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-row-reverse  items-center justify-between">
           {/* Left Content */}
-          <div className="space-y-2">
+          <div className="space-y-2 ">
             <h2 className="space-y-2 ms-5">
               <span className="block text-2xl font-medium text-purple-600">Value that</span>
               <span className="block text-4xl font-semibold">Sets us Apart</span>
@@ -45,10 +45,10 @@ const BrandBanner = () => {
                   <div className="">
                     <div className=" flex items-center gap-1">  
 
-                    <div className="rounded-full bg-purple-100 p-1">
-                      <Check className="h-5 w-5 text-purple-600" />
+                    <div className="rounded-full  p-1">
+                      <Check className="h-5 w-5 text-black" />
                     </div> 
-                       <div className='font-medium text-[30px]'>   {item.title}  </div>
+                       <div className=' text-[26px] font-[600]'>   {item.title}  </div>
                          
                          </div>
                     <p className="text-[20px] text-[#2A2A2A] font-medium ms-6">{item.description}</p>

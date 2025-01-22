@@ -7,7 +7,7 @@ import type { CollapseProps } from 'antd';
 import { Collapse, theme } from 'antd';
 import { Plus } from 'lucide-react';
 import {  Urbanist } from 'next/font/google';
-const urbanist = Urbanist({ subsets: ["latin"], weight: "400" });
+const urbanist = Urbanist({ subsets: ["latin"], weight: ["400" , "500", "600", "700"] });
 
 const text = `
 To place an order, download our app or visit our website, enter your location, and browse local restaurants. Add items to your cart, proceed to checkout, and confirm your order. We’ll take care of the rest! You’ll receive updates on your order status and can track your delivery in real-time. Enjoy fresh, delicious food delivered right to your door!
@@ -81,7 +81,7 @@ const FAQ = () => {
             — FAQ
           </p>
           
-          <h2 className={` text-[40px] font-bold leading-tight text-gray-900 ${urbanist.className}` }>
+          <h2 className={` text-[40px] font-[500] leading-tight text-gray-900 ${urbanist.className}` }>
           Got Questions? We Have Answers!
           </h2>
 
