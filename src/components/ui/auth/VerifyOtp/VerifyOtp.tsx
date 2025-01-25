@@ -1,37 +1,98 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 "use client"
-import {  Form, Typography } from "antd";
+import {  Form, Input, Typography } from "antd";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react"
-import OTPInput from "react-otp-input";
+
 import "./OtpStyle.css"
+import Swal from "sweetalert2";
+import { GetLocalStorage, SetLocalStorage } from "@/util/LocalStroage";
+import { useForgetPasswordMutation, useVerifyEmailMutation } from "@/redux/features/auth/authApi";
 const { Text } = Typography;
 
 const VerifyOtp = () => { 
-    const router = useRouter()
-    const [otp, setOtp] = useState<string>("");
-    const [email, setEmail] = useState<string | null>(null);
+  const [email, setEmail] = useState<string | null>(null);
+  const userInfo = GetLocalStorage("userInfo"); 
+  const [verifyEmail] = useVerifyEmailMutation()
+  const userType = userInfo?.userType 
+  const router = useRouter() 
+  const [forgetPassword] = useForgetPasswordMutation() 
 
-    useEffect(() => {
-      const emailFromQuery = new URLSearchParams(window.location.search).get('email');
-      setEmail(emailFromQuery);
-    }, []); 
+  useEffect(() => {
+    if (userInfo?.email) {
+      setEmail(userInfo.email);
+    }
+  }, [userInfo]);
 
-    console.log(email);
-  
-    const onFinish = async(values:{otp:string}) => {  
-        const userType = localStorage.getItem("userType")
-        console.log(values); 
-        if(userType === "forget"){
-            router.push(`/reset-password`);
-        }else{
-            router.push(`/login`);
-        }
-    };
-  
-  
-    const handleResendEmail = async() => {
-  
-    };
+  const handleResendEmail = async () => {
+    const value = {
+      email: email
+    }
+    await forgetPassword(value).then((res) => {
+      if (res?.data?.success) {
+        Swal.fire({
+          text: res?.data?.message,
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
+        })
+      } else {
+        Swal.fire({
+          title: "Oops",
+          //@ts-ignore
+          text: res?.error?.data?.message,
+          icon: "error",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+
+      }
+    })
+
+  }
+
+  const onFinish = async(values: { otp: string}) => {
+    // //console.log(values); 
+    const data = {
+      email: email,
+      oneTimeCode: parseInt(values?.otp)
+    }
+
+    await verifyEmail(data).then((res) => {
+
+      if (res?.data?.success) {
+        Swal.fire({
+          text: res?.data?.message,
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
+        }).then(() => { 
+
+          if (userType === "registerUser") {
+            router.push("/login")
+          } else {
+            router.push("/reset-password")
+          } 
+
+          if(res?.data){   
+            SetLocalStorage("resetToken", res?.data?.data); 
+          }
+    
+        });
+      } else {
+        Swal.fire({
+          title: "Oops",
+          //@ts-ignore
+          text: res?.error?.data?.message,
+          icon: "error",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+
+      }
+    })
+  };  
+
     return (
         <div className="bg-white rounded-lg shadow-2xl p-[30px] pt-[55px] w-[600px]">
 
@@ -43,26 +104,22 @@ const VerifyOtp = () => {
 
         <Form layout="vertical" onFinish={onFinish}>
 
-          <div className="flex items-center justify-center mb-6">
-            <OTPInput
-              value={otp}
-              onChange={setOtp}
-              numInputs={5}
-              inputStyle={{
-                height: 50,
-                width: 50,
-                borderRadius: "8px",
-                margin: "16px",
-                fontSize: "20px",
-                border: "1px solid #818181",
-                color: "#2B2A2A",
-                outline: "none",
-                marginBottom: 10
-              }}
-              renderInput={(props) => <input {...props} />}
-            />
+        <Form.Item
+   className="flex items-center justify-center mx-auto"
+   name="otp"
+   rules={[{ required: true, message: 'Please input otp code here!' }]}
+ >
+   <Input.OTP
+     style={{
+      
+       height: 50,
 
-          </div>
+     }}
+     className=""
+     variant="filled"
+     length={6}
+   />
+ </Form.Item>
 
           <div className="flex items-center justify-between mb-6 ">
             <Text>Don&apos;t received code?</Text>

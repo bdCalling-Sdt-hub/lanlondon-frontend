@@ -1,24 +1,59 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 "use client"
 
 import TextInput from "@/components/shared/TextInput";
+import { useLoginUserMutation } from "@/redux/features/auth/authApi";
+import { SetLocalStorage } from "@/util/LocalStroage";
 import { Checkbox, Form, Input } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const router = useRouter()
+  const [loginUser, { isSuccess, isError, data, error, isLoading }] = useLoginUserMutation()
 
-
-  const onFinish = async (values: { email: string, password: string }) => {
-    console.log(values);
-
-    router.push("/brand-home")
-
-
+  useEffect(() => {
+    if (isSuccess) {
+      if (data) {
+        Swal.fire({
+          title: "Login Successful",
+          text: "Welcome to Dokter For You",
+          icon: "success",
+          timer: 1500,
+          showConfirmButton: false
+        }).then( () => {
+ 
+          if (data) {
+            SetLocalStorage("creatorToken", data?.data?.accessToken); 
+            router.push("/brand-home");
+          
+          }
+        
+ 
+        });
+      }
+ 
+    }
+    if (isError) {
+      Swal.fire({
+        title: "Failed to Login",
+        //@ts-ignore
+        text: error?.data?.message,
+        icon: "error",
+      });
+    }
+  }, [isSuccess, isError, error, data, router ]);
+ 
+ 
+  const onFinish = async (values:{email:string , password:string}) => {
+    await loginUser(values)
   };
+ 
+
 
   return ( 
     <div className="grid grid-cols-1 md:grid-cols-2  bg-[#f9bdf5] " >
@@ -101,7 +136,7 @@ const Login = () => {
             type="submit"
                 className="w-full py-4 rounded-full   text-[20px] text-white leading-6 font-medium shadow-sm bg-black mt-5 "
  
-              >Sign In
+              >{isLoading ? "Loading..." : "Sign In"} 
               </button>
             </Form.Item>
 

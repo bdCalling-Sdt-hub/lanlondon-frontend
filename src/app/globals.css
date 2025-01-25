@@ -48,3 +48,9 @@
   .rbc-event-content {
     text-align: center; /* Align text */
   }
+
+  .ant-otp .ant-otp-input {  
+
+    height: 55px !important; 
+    border: 1px solid black !important;
+  }

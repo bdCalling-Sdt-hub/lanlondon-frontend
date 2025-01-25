@@ -1,26 +1,67 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 "use client";
 
 import TextInput from "@/components/shared/TextInput";
+import { useCreateUserMutation } from "@/redux/features/auth/authApi";
+import { SetLocalStorage } from "@/util/LocalStroage";
 import { Checkbox, Form, Input } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
+import Swal from 'sweetalert2' 
 
 interface ValuesType {
   name: string;
   email: string;
   contact: string;
   password: string;
-  confirm_password: string;
 }
 
 const Register: React.FC = () => {
-  const router = useRouter();
-
+  const router = useRouter(); 
+  const [createUser] = useCreateUserMutation();
+ 
   const onFinish = async (values: ValuesType) => {
-    console.log(values);
-    localStorage.setItem("userType", "register");
-    router.push(`/verify-otp?email=${values.email}`);
+  
+const data={
+  role: "BRAND" , 
+  ...values
+}
+
+console.log(data);
+
+    await createUser(data).then((res) => {
+    
+      if (res?.data?.success) {
+        Swal.fire({
+          text: res?.data?.message,
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
+        }).then(() => { 
+          const value = {
+            userType: "registerUser",
+            email: values?.email
+          }
+          if (values?.email) {
+            SetLocalStorage("userInfo", value)
+          } 
+          router.push("/verify-otp")
+        
+        });
+      } else {
+        Swal.fire({
+          title: "Oops",
+          //@ts-ignore
+          text: res?.error?.data?.message,
+          icon: "error",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+
+      }
+    })  
+
   };
 
   return ( 
@@ -40,11 +81,7 @@ const Register: React.FC = () => {
         <p className="text-[32px] font-semibold pb-4">Sign Up</p>
         <Form onFinish={onFinish} layout="vertical"> 
 
-          <div className=" grid grid-cols-2 gap-3 w-full"> 
-
-          <TextInput name="firstName" label="First Name" />
-          <TextInput name="lastName" label="Last Name" />
-          </div>
+          <TextInput name="name" label="Name" />       
           <TextInput name="email" label="Email" />
           <TextInput name="contact" label="Phone Number" />
 
@@ -55,7 +92,11 @@ const Register: React.FC = () => {
               {
                 required: true,
                 message: "Please enter your password!",
-              },
+              }, 
+               {
+                min: 8,
+                message: "Password must be at least 8 characters long!",
+            }
             ]}
             className="mb-3"
           >

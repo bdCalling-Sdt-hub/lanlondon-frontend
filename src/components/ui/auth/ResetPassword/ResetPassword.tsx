@@ -1,16 +1,46 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 "use client"
+
+import { useResetPasswordsMutation } from "@/redux/features/auth/authApi";
 import {  Form, Input } from "antd";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
+import Swal from "sweetalert2";
 
 const ResetPassword = () => { 
-    const router = useRouter()
+  const router = useRouter()
+  const [resetPasswords , {isError ,isLoading , isSuccess , error ,data}] = useResetPasswordsMutation()  
 
-    const onFinish = async(values:{newPassword:string , confirmPassword:string}) => { 
-      console.log(values);
-      router.push(`/login`);
-    }; 
+  useEffect(() => {
+    if (isSuccess) {
+      if (data) {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: data?.message,
+          timer: 1500,
+          showConfirmButton: false
+        }).then(() => {
+          router.push("/login")
+        
+        });
+      }
+    }
+    if (isError) {
+      Swal.fire({
+       //@ts-ignore
+        text: error?.data?.message,  
+        icon: "error",
+      });
+    }
+  }, [isSuccess, isError, error, data, router]);  
 
+
+  const onFinish = async(values:{ newPassword: string , confirmPassword: string}) => {   
+    await resetPasswords(values).then((res)=>{
+      console.log(res);
+    })
+  }  
     return (
         <div className="bg-white rounded-lg shadow-2xl p-[30px] pt-[55px] w-[600px]">
 
@@ -109,7 +139,7 @@ const ResetPassword = () => {
             type="submit"
                 className="w-full py-4 rounded-full   text-[20px] text-white leading-6 font-medium shadow-sm bg-black mt-5 "
 
-              > Update
+              > {isLoading ? "Loading..." : "Submit"}
               </button>
           </Form.Item>
 
