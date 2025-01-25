@@ -6,7 +6,8 @@ import type { CSSProperties } from 'react'
 import type { CollapseProps } from 'antd';
 import { Collapse, theme } from 'antd';
 import { Plus } from 'lucide-react';
-import {  Urbanist } from 'next/font/google';
+import {  Urbanist } from 'next/font/google'; 
+import "./faq.css"
 const urbanist = Urbanist({ subsets: ["latin"], weight: ["400" , "500", "600", "700"] });
 
 const text = `
@@ -64,17 +65,17 @@ const FAQ = () => {
 
     const panelStyle: React.CSSProperties = {
       marginBottom: 24,
-      background: "#edeef0",  
+      background: "#fff",  
     
       borderRadius: token.borderRadiusLG,
     
     };  
     return (
-        <div>
+        <div className='faqBg py-[100px]'>
           
-            <div className='mb-[100px]'> 
+            <div className=''> 
 
-<div className=' container'>  
+<div className=' container  bg-pink-100/70 shadow-2xl rounded-xl px-8  py-5 ' >  
 
     <div className=' pb-[40px]'>
     <p className="mb-4 inline-block uppercase text-[24px] font-medium text-gray-600">
@@ -87,6 +88,7 @@ const FAQ = () => {
 
     </div> 
 
+<div >
     <Collapse
 bordered={false}
 expandIcon={({ isActive }) => <Plus  size={22} style={{ 
@@ -95,9 +97,11 @@ transition: 'transform 0.3s ease',
 color: 'black' 
 }}  />} 
 expandIconPosition="end"
-style={{ background: "#fff"  , color: '#222222'}}  
+style={{ background: "transparent"  , color: '#222222'}}  
 items={getItems(panelStyle)}
 />  
+
+</div>
 
 </div>
 </div>

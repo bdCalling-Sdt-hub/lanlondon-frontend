@@ -1,32 +1,54 @@
 /* eslint-disable @next/next/no-img-element */
+"use client"
 import React from 'react';
 import logo1 from "@/assets/logo1.png";
 import logo2 from "@/assets/logo2.png";
 import logo3 from "@/assets/logo3.png";
 import logo4 from "@/assets/logo4.png";
 import logo5 from "@/assets/logo5.png";
-import Image from 'next/image';
+import Image from 'next/image'; 
+
+import "swiper/css";
+import "swiper/css/navigation"; 
+import { Autoplay,} from 'swiper/modules';
 import { Poppins, Urbanist } from 'next/font/google';
 import "./JoinAs.css";
+import { Swiper, SwiperSlide } from 'swiper/react';
 const urbanist = Urbanist({ subsets: ["latin"], weight: ["400","500" , "600" ,"700", "800", "900"] });
-const poppins = Poppins({ subsets: ["latin"], weight: "400" });
+const poppins = Poppins({ subsets: ["latin"], weight: "400" }); 
 
-const JoinAs = () => {
+
+const JoinAs = () => {  
+    const logos = [logo1, logo2, logo3, logo4, logo5 , logo1];
     return (
         <div>
 
-            <div className='flex items-center justify-between my-[55px] container '>
-                {[logo1, logo2, logo3, logo4, logo5].map((logo, index) => (
-                    <Image
-                        key={index}
-                        src={logo}
-                        alt={`Logo ${index + 1}`}
-                        className="h-[30px]"
-                        height={30} // Specify height
-                        width={150}  // Specify width
-                    />
-                ))}
-            </div>
+<div className="my-[55px] container">
+      <Swiper
+        loop={true} 
+        centeredSlides={true}
+        autoplay={{
+          delay: 1000,
+          disableOnInteraction: false,
+        }}
+        slidesPerView={5} 
+        spaceBetween={20}  
+        modules={[Autoplay]}
+        className="flex items-center"
+      >
+        {logos.map((logo, index) => (
+          <SwiperSlide key={index}>
+            <Image
+              src={logo}
+              alt={`Logo ${index + 1}`}
+              className="h-[30px]"
+              height={30}
+              width={150}
+            />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div> 
 
             {/* section  */}
             <div>
@@ -35,7 +57,7 @@ const JoinAs = () => {
       <div className="container relative mx-auto flex items-center justify-between px-4 py-[110px]">
         {/* Left Content */}
         <div className="w-full max-w-2xl pr-8">
-          <span className="mb-4 inline-block text-[24px] font-[600] text-gray-600">
+          <span className="mb-4 inline-block text-[24px] font-[600] text-gray-800">
             — Be the Part of the Community
           </span>
           
@@ -43,7 +65,7 @@ const JoinAs = () => {
             Join as Influencer & Earn
           </h2>
           
-          <p className={`mb-8 text-lg leading-relaxed text-gray-600 font-[500] ${poppins.className}`}>
+          <p className={`mb-8 text-lg leading-relaxed text-gray-800 font-[500] ${poppins.className}`}>
             At Creator Brief, we help bands create impactful campaigns and track their success with a powerful dashboard. Customize your promotions, monitor real-time analytics, and understand your audience like never before. From tracking engagement to optimizing your reach, our platform gives you the insights to grow your fanbase and amplify your music&apos;s impact.
           </p>
 

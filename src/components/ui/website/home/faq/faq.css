@@ -1,7 +1,7 @@
-.bannerBg {
-    background-image: url("/banner.svg");
+.faqBg {
+    background-image: url("/faqbg.svg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: #ffe6f7;
+    background-color: #faeef6;
   }

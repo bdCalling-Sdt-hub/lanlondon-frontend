@@ -11,6 +11,7 @@ const Navbar = () => {
     const pathname = usePathname();
   
     const navOptions = [
+      { label: "Home", path: "/" },
       { label: "I'm a Brand", path: "/brand" },
       { label: "I'm a Creator", path: "/creator" },
       { label: "Contact Us", path: "/contact" },

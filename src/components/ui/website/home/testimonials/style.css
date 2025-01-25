@@ -23,5 +23,13 @@
   width: 40px !important;
   border-radius: 100%;  
   right: -20px !important;
+} 
+
+.testimonialsBannerBg {
+  background-image: url("/testimonialsBannerBg.svg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #f2f7fd; 
 }
 

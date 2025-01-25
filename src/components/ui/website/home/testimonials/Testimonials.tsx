@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation } from 'swiper/modules'
+import { Autoplay, Navigation } from 'swiper/modules'
 
 // Import Swiper styles
 import 'swiper/css'
@@ -58,18 +58,22 @@ const testimonials = [
 ]
 
 export default function Testimonials() {
-    return (
-        <div className=" mx-auto px-10 my-[100px]">
-            <h2 className="text-center text-4xl font-semibold mb-12">Testimonials</h2>
+    return ( 
+        <div className='testimonialsBannerBg  py-[100px] '>
+        <div className=" mx-auto px-10 ">
+            <h2 className="text-center text-4xl font-semibold pb-14">Testimonials</h2>
 
             <div className="relative">
                 <Swiper
-                    modules={[Navigation]}           
+                    modules={[Autoplay , Navigation]}           
                     spaceBetween={30}
-                    loop={true} 
                     pagination={{
                       clickable: true,
-                    }}
+                    }} 
+                    autoplay={{
+                        delay: 3000,
+                        disableOnInteraction: false,
+                      }}
                     className="mySwiper" 
                     breakpoints={{
                         640: {
@@ -93,7 +97,7 @@ export default function Testimonials() {
 
                     {testimonials.map((testimonial , index) => (
                         <SwiperSlide key={testimonial.id}>
-                            <div className={`rounded-xl p-8 h-full ${index % 2 !== 0 ? 'bg-[#202020] text-white' : 'bg-zinc-100'}  transition-all duration-300`}>
+                            <div className={`rounded-xl p-8 h-full ${index % 2 !== 0 ? 'bg-[#202020] text-white' : 'bg-white'}  transition-all duration-300`}>
                                 <div className="flex mb-4 items-center justify-center gap-[3px]">
                                     {[...Array(testimonial.rating)].map((_, i) => (
                                         <IoStar key={i} className="w-6 h-6 fill-yellow-400 text-yellow-400" />
@@ -127,6 +131,7 @@ export default function Testimonials() {
                   <span>  <ChevronRight className="" color='white' /> </span> 
                 </button>
             </div>
+        </div>
         </div>
     )
 }

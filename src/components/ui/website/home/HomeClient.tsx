@@ -2,12 +2,13 @@ import React from 'react';
 import Banner from './banner/Banner';
 import JoinAs from './Joinas/JoinAs';
 import Testimonials from './testimonials/Testimonials';
-import FAQ from './FAQ';
+
 import EnhanceExperience from './EnhanceExperience';
+import FAQ from './faq/FAQ';
 
 const HomeClient = () => {
     return (
-        <div>
+        <div className='' >
             <Banner /> 
             <JoinAs /> 
             <Testimonials /> 
