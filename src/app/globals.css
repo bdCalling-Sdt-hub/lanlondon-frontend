@@ -53,4 +53,15 @@
 
     height: 55px !important; 
     border: 1px solid black !important;
-  }
+  } 
+
+  .ant-table-wrapper .ant-table-tbody >tr >td { 
+    background-color: #ffe6f7 !important; 
+    color: black !important; 
+    border: 1px solid gainsboro !important;
+   } 
+
+   .ant-table-thead .ant-table-cell { 
+    background-color: black !important; 
+    color: white !important;
+    } 

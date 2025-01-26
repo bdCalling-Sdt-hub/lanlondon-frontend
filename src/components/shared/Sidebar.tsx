@@ -58,7 +58,7 @@ const Sidebar = () => {
       {
         key: '/wallet',
         icon: <LiaMoneyBillSolid size={24} />,
-        label: <Link href="/wallet">Wallet</Link>,
+        label: <Link href="/wallet">Budget</Link>,
       },
       {
         key: '/add-campaign',

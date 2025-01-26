@@ -4,9 +4,7 @@ import { ConfigProvider, Input, Table } from 'antd'
 import { Search } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
-import { FiEye } from 'react-icons/fi';
-import { LuCheck } from 'react-icons/lu';
-import { RxCross2 } from 'react-icons/rx';
+
 
 
 
@@ -84,13 +82,14 @@ const Applicants = () => {
 
     const columns = [
         {
-            title: "Serial No.",
+            title: " No.",
             dataIndex: "name",
-            key: "name",
-            render: (_:any,record:any, index:number) =><p>{((page - 1) * itemsPerPage) + index + 1}</p>
+            key: "name", 
+            width: 100,
+            render: (_:any,record:any, index:number) =><p className='text-center'>{((page - 1) * itemsPerPage) + index + 1}</p>
         },
         {
-            title: "User",
+            title: "Creator",
             dataIndex: "user",
             key: "user",
             render: (_:any,record:any) => <div className='flex items-center gap-x-2'>
@@ -104,13 +103,13 @@ const Applicants = () => {
         },
         
         {
-            title: "Address",
+            title: "Location",
             dataIndex: "location",
             key: "location",
            
         }, 
         {
-            title: "Date",
+            title: "View Social",
             dataIndex: "date",
             key: "date",
         },
@@ -119,12 +118,10 @@ const Applicants = () => {
             dataIndex: "actions",
             key: "actions",
             render: (_:any,record:any) => 
-                <div className=' flex items-center gap-x-3 '> 
-<FiEye size={22} color='#999999' onClick={() => handleDetails(record?.key)} className={"cursor-pointer"}/>  
-
-<RxCross2 size={22} color='red' onClick={() => handleDetails(record?.key)} className={"cursor-pointer"}/>  
-
-<LuCheck size={22} color='green' onClick={() => handleDetails(record?.key)} className={"cursor-pointer"}/> 
+                <div className=' flex items-center gap-x-3 '>  
+                <button className='text-white bg-black py-1 px-4 '> Details</button>
+                <button className='text-[#FF3131] bg-[#ffd6d6] py-1 px-4 rounded-md '> Decline</button>
+                <button className='text-black bg-[#c1ff72] py-1 px-4 rounded-md '> Accept</button>
 
 
                 </div> 

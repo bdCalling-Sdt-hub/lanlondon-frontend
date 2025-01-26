@@ -45,7 +45,16 @@ const steps = [
 
 const HowWeWork = () => {
     return (
-        <div className={`${urbanist.className}  py-[100px]`}>
+        <div className={`${urbanist.className}  py-[100px]`} style={{
+            backgroundImage: `url('/banner.svg')`,
+            backgroundSize: 'cover', 
+            backgroundPosition: 'center', 
+            backgroundRepeat: 'no-repeat', 
+            width: "100%", 
+            height: "100%",   
+            objectFit: 'cover', 
+            backgroundColor: "#ffe6f7"
+        }} >
 
             <div className="">
                 <div className="container">
@@ -56,21 +65,21 @@ const HowWeWork = () => {
 
                         <div className="relative">
                             {/* Vertical line */}
-                            <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-[#659c1d] opacity-20 hidden lg:block" />
+                            <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-[#7A00F1] opacity-20 hidden lg:block" />
 
                             <div className="space-y-[33px]">
                                 {steps.map((step, index) => (
                                     <div key={step.number} className="relative">
                                         <div className={`flex flex-col-reverse items-center  lg:flex-row ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} lg:items-center gap-8`}>
                                             <div className={`lg:w-2/3 w-full flex ${index % 2 === 0 ? 'lg:items-start lg:justify-end lg:me-20' : 'lg:items-end lg:justify-start lg:ms-20'} justify-center`}>
-                                                <div className="lg:w-40 w-40 lg:h-40 h-40 bg-[#f1f8e5] rounded-full flex items-center justify-center">
+                                                <div className="lg:w-40 w-40 lg:h-40 h-40 bg-[#F2E6FE] rounded-full flex items-center justify-center">
                                                     <Image src={step?.image} alt={step?.title} height={80} width={80} />
                                                 </div>
                                             </div>
 
                                             <div className={`lg:w-2/3 w-full flex flex-col ${index % 2 === 0 ? 'lg:items-start lg:text-left' : 'lg:items-end lg:text-right'} items-center text-center`}>
                                                 <div className={`flex items-center gap-4 ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} flex-col`}>
-                                                    <div className="w-[60px] h-[60px] text-[20px] rounded-full bg-[#C1FF72] flex items-center justify-center border-[6px] border-[#bce2a6] text-black font-semibold">
+                                                    <div className="w-[60px] h-[60px] text-[20px] rounded-full bg-[#7A00F1] flex items-center justify-center border-[6px] border-[#caa6e2] text-white font-semibold">
                                                         {step.number}
                                                     </div>
                                                     <h3 className="text-[24px] font-semibold lg:w-[350px]">{step.title}</h3>
@@ -82,7 +91,7 @@ const HowWeWork = () => {
                                         </div>
 
                                         {/* Circle connector */}
-                                        <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-[#51860b] rounded-full hidden lg:block" />
+                                        <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-[#7A00F1] rounded-full hidden lg:block" />
                                     </div>
                                 ))}
                             </div>

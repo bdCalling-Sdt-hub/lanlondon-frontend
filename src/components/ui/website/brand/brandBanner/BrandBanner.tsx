@@ -15,11 +15,21 @@ const BrandBanner = () => {
       <div className="container relative mx-auto px-4">
         <div className="flex flex-row-reverse  items-center justify-between">
           {/* Left Content */}
-          <div className="space-y-2 ">
+          <div className="space-y-2 "> 
+
+            <div className=' flex items-start justify-between'> 
+
             <h2 className="space-y-2 ms-5">
               <span className="block text-2xl font-medium text-purple-600">Value that</span>
               <span className="block text-4xl font-semibold">Sets us Apart</span>
-            </h2>
+            </h2> 
+ 
+ <div className=' flex items-center gap-3'> 
+ <img src="/star.png" alt="" className='w-[60px] h-[60px]' /> 
+ <img src="/star.png" alt="" className='w-[60px] h-[60px] mt-2' /> 
+ </div>
+            
+            </div>
             
             <div className="space-y-3">
               {[
@@ -55,6 +65,9 @@ const BrandBanner = () => {
                   </div>
                 </div>
               ))}
+            </div>  
+            <div className=' ms-3 mt-3'> 
+            <img src="/footerIcon.png" alt="" className='w-auto h-[50px]' />
             </div>
           </div>
 

@@ -45,7 +45,16 @@ const steps = [
 
 const HowItWorkBrand = () => {
     return (
-        <div className={`${urbanist.className}  py-[100px]`}>
+        <div className={`${urbanist.className}  py-[100px]`} style={{
+            backgroundImage: `url('/banner.svg')`,
+            backgroundSize: 'cover', 
+            backgroundPosition: 'center', 
+            backgroundRepeat: 'no-repeat', 
+            width: "100%", 
+            height: "100%",   
+            objectFit: 'cover', 
+            backgroundColor: "#ffe6f7"
+        }}>
 
             <div className="">
                 <div className="container">

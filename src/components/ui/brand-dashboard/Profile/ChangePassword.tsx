@@ -1,13 +1,40 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 "use client"
-import { Button, Form, Input } from 'antd';
-import React from 'react';
+import { useChangePasswordMutation } from '@/redux/features/auth/authApi';
+import { Form, Input } from 'antd';
+import React, { useEffect } from 'react';
+import Swal from 'sweetalert2';
 
 const ChangePassword = () => {   
     const [form] = Form.useForm()
+    const [changePassword , {data , isError , isLoading , isSuccess , error }] = useChangePasswordMutation() 
+ 
+    useEffect(() => {
+        if (isSuccess) { 
+          if (data) {
+            Swal.fire({
+              text: data?.message ,
+              icon: "success",
+              timer: 1500,
+              showConfirmButton: false
+            }).then(() => { 
+              window.location.reload(); 
+            });
+          }
+        }
+        if (isError) {
+          Swal.fire({ 
+            //@ts-ignore
+            text: error?.data?.message,  
+            icon: "error",
+          });
+        }
+      }, [isSuccess, isError, error, data])   
 
-    const handleChangePassword =(values:{current_password:string , new_password:string , confirm_password:string})=>{
-    console.log(values);
-    } 
+
+    const handleChangePassword = async(values:{currentPassword:string , newPassword:string , confirmPassword:string}) => {
+        await changePassword(values)
+    };   
 
     return (
         <div>
@@ -31,7 +58,7 @@ const ChangePassword = () => {
                
                 <Form.Item
                   style={{ marginBottom: 0 }}
-                  name="current_password" 
+                  name="currentPassword" 
                   label={ <p style={{ display: "block"}}>
                   Current Password
                 </p>}
@@ -59,13 +86,13 @@ const ChangePassword = () => {
               <div className=" mb-[20px]  lg:w-[50%] w-[100%]">
                 
                 <Form.Item
-                  name="new_password"  
+                  name="newPassword"  
                   label={<p
                   style={{ display: "block"}}
                 >
                   New Password
                 </p>}
-                  dependencies={["current_password"]}
+                  dependencies={["currentPassword"]}
                   hasFeedback
                   rules={[
                     {
@@ -74,7 +101,7 @@ const ChangePassword = () => {
                     },
                     ({ getFieldValue }) => ({
                       validator(_, value) {
-                        if (!value || getFieldValue("current_password") === value) {                     
+                        if (!value || getFieldValue("currentPassword") === value) {                     
                           return Promise.reject(
                             new Error(
                              "The new password and current password do not match!"
@@ -105,7 +132,7 @@ const ChangePassword = () => {
               <div className=" mb-[40px]  lg:w-[50%] w-[100%]">
                 
                 <Form.Item
-                  name="confirm_password" 
+                  name="confirmPassword" 
                   label={<p
                     style={{ display: "block"}} >
                     Re-Type Password
@@ -120,7 +147,7 @@ const ChangePassword = () => {
                     },
                     ({ getFieldValue }) => ({
                       validator(_, value) {
-                        if (!value || getFieldValue("new_password") === value) {
+                        if (!value || getFieldValue("newPassword") === value) {
                           return Promise.resolve();
                         }
                         return Promise.reject(
@@ -155,26 +182,13 @@ const ChangePassword = () => {
     }}
   >
     <div style={{ width: "100%", position: "relative" }}>
-      <Form.Item>
-        <Button
-          type="primary"
-          htmlType="submit"
-          block
-          style={{
-            border: "none",
-            height: "41px",
-            background: "#1D75F2",
-            color: "white",
-            borderRadius: "8px",
-            outline: "none",
-            width: "150px",
-            position: "absolute",
-            right: "20px",
-            bottom: "0px",  
-          }}
+      <Form.Item className='flex items-center  justify-end'>
+        <button
+          type="submit"
+          className='bg-black text-white px-4 py-3 rounded-lg hover:border-2 hover:border-black hover:bg-white hover:font-medium hover:text-black transition-colors'
         >
-          Submit
-        </Button>
+       {isLoading ? "Loading..." : "Change Password"}   Submit
+        </button>
       </Form.Item>
     </div>
   </div> 

@@ -1,6 +1,8 @@
+"use client";
 import React from 'react';
 import { Instagram, Facebook } from 'lucide-react';
-import { Input } from 'antd';
+import { useGetFavoriteQuery } from '@/redux/features/brand-dashboardApi/favorite';
+import { imageUrl } from '@/redux/base/baseApi';
 
 interface InfluencerCardProps {
     name: string;
@@ -10,7 +12,8 @@ interface InfluencerCardProps {
     facebookFollowers: string;
 }
 
-const InfluencerCard = ({ name, username, imageUrl, instagramFollowers, facebookFollowers }: InfluencerCardProps) => {
+const InfluencerCard = ({ name, username, imageUrl, instagramFollowers, facebookFollowers }: InfluencerCardProps) => { 
+
     return (
         <div className="bg-white rounded-2xl p-4 shadow-lg flex flex-col items-center">
             <img
@@ -37,35 +40,33 @@ const InfluencerCard = ({ name, username, imageUrl, instagramFollowers, facebook
     );
 };
 
-const influencers = Array(8).fill({
-    name: 'Jason Price',
-    username: 'squ_chen12',
-    imageUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-    instagramFollowers: '2.2k',
-    facebookFollowers: '2.2k',
-});
-const Favorites = () => {
+
+const Favorites = () => { 
+
+    const {data:favorites} = useGetFavoriteQuery(undefined) 
+    const allFavorites = favorites?.data 
+    console.log(allFavorites) 
+  
+    const influencers = allFavorites?.map((influencer:{_id:string, influencer:{name:string, profile:string , instagramFollowers:string, facebookFollowers:string} }) => ({ 
+        id: influencer?._id,
+        name: influencer?.influencer?.name,
+        username: influencer?.influencer.name,
+        imageUrl: influencer?.influencer?.profile?.startsWith("https") ? influencer?.influencer?.profile : `${imageUrl}${influencer?.influencer?.profile }`,
+        instagramFollowers: influencer?.influencer?.instagramFollowers,
+        facebookFollowers: influencer?.influencer?.facebookFollowers,
+    }));
+    
     return (
         <div>
             <div className="">
                 <div className=" mx-auto">
                     <div className="flex justify-between items-center mb-6">
                         <h1 className="text-xl font-semibold text-black">Favorite Influencer</h1>
-                        <div className="">
-                            <Input 
-                                type="text"
-                                placeholder="Search"
-                                className="pl-10 pr-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-200" 
-                                style={{ width: '350px' , height: '45px' }}  
 
-                                
-                            />
-                 
-                        </div>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                        {influencers.map((influencer, index) => (
+                        {influencers?.map((influencer:{id:string, name:string, username:string, imageUrl:string, instagramFollowers:string, facebookFollowers:string}, index:number) => (
                             <InfluencerCard
                                 key={index}
                                 {...influencer}

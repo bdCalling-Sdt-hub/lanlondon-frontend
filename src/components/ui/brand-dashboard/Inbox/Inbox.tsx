@@ -179,7 +179,7 @@ const Inbox = () => {
     <div className="mx-6  ">
     <div className="grid grid-cols-12 gap-4 h-[79vh]">
       {/* Message List */}
-      <div className={`lg:col-span-4 col-span-12 bg-white rounded-xl px-7 py-4 ${isChatVisible ? "hidden lg:block" : ""}`}> 
+      <div className={`lg:col-span-4 col-span-12 bg-pink-50 rounded-xl px-7 py-4 ${isChatVisible ? "hidden lg:block" : ""}`}> 
         <p className="text-[22px] text-black font-semibold px-4 pt-2 pb-4 border-b border-gray-200 mb-4">Inbox</p>
         {/* search  */}
         <div
@@ -219,7 +219,7 @@ const Inbox = () => {
       </div>
   
       {/* Chat Section */}
-      <div className={`lg:col-span-8 col-span-12 bg-[#FCFCFC] rounded-xl p-2 ${isChatVisible ? "block" : "hidden lg:block"}`}>
+      <div className={`lg:col-span-8 col-span-12 bg-pink-100 rounded-xl p-2 ${isChatVisible ? "block" : "hidden lg:block"}`}>
         <div>
           <div className="flex items-center justify-between gap-2 py-2 px-3  rounded-tl-2xl rounded-tr-2xl border-b border-gray-200">
             <div className="flex items-center gap-2">  
@@ -236,12 +236,12 @@ const Inbox = () => {
               <p className="text-black"><BsThreeDotsVertical size={22} /></p>
             </Dropdown>
           </div>
-          <div className="bg-white w-full h-[calc(71vh+54px)] rounded-lg relative">
+          <div className="bg-pink-50 w-full h-[calc(71vh+54px)] rounded-lg relative">
             {/* Chat messages */}
             <div className="py-6 lg:px-8 px-3 overflow-y-auto h-[70vh]">
               {messageContent.map((value, index) => (
                 <div key={index} className={`flex mb-5 w-full ${index % 2 === 0 ? "items-end justify-end" : "items-start justify-start"}`}>
-                  <div className={`lg:w-3/5 w-2/3 lg:px-4 px-2 py-3 flex-col gap-4 ${index % 2 === 0 ? "bg-[#C1FF72] rounded-t-xl rounded-bl-xl" : "bg-[#F5F5F5] rounded-t-xl rounded-br-xl"}`}>
+                  <div className={`lg:w-3/5 w-2/3 lg:px-4 px-2 py-3 flex-col gap-4 ${index % 2 === 0 ? "bg-[#e2f8c4] rounded-t-xl rounded-bl-xl" : "bg-[#F5F5F5] rounded-t-xl rounded-br-xl"}`}>
                     <p>{value?.message}</p> 
 
                     <div className="flex items-center justify-end gap-1"> 

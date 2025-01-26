@@ -1,7 +1,8 @@
 .brandBannerBg {
-    background-image: url("/brandBannerbg.svg");
+    background-image: url("/faqbg.svg");
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat; 
+    background-color: #faeef6;
   }
   

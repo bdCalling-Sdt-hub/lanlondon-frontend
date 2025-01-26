@@ -1,30 +1,75 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MdOutlineAddPhotoAlternate } from 'react-icons/md';
 import { Form, Input } from "antd";
+import { useBrandProfileQuery, useUpdateProfileMutation } from '@/redux/features/auth/authApi';
+import { imageUrl } from '@/redux/base/baseApi';
+import Swal from 'sweetalert2';
 
 
 const UserProfile = () => {
-    const [form] = Form.useForm();
+    const [form] = Form.useForm(); 
     const [image, setImage] = useState(
         "https://avatars.design/wp-content/uploads/2021/02/corporate-avatars-TN-1.jpg"
     );
-    const [imgURL, setImgURL] = useState(image);
+    const [imgURL, setImgURL] = useState(image);  
+    const {data:userProfile , refetch} = useBrandProfileQuery(undefined)  
+    const [updateProfile , {isLoading , isSuccess , isError , error , data}] = useUpdateProfileMutation() 
+
+    console.log(userProfile);
 
 
+    useEffect(() => {
+        if (userProfile?.data) {
+            form.setFieldsValue({
+                name: userProfile?.data?.name,
+                email: userProfile?.data?.email,
+                contact: userProfile?.data?.contact,
+                location: userProfile?.data?.location,            
+            }); 
+            setImgURL(userProfile?.data?.profile?.startsWith("https") ? userProfile?.data?.profile : `${imageUrl}${userProfile?.data?.profile }`) 
+        }
+    }, [userProfile, form]); 
 
-    const handleSubmit = (values: { firstName: string, email: string, mobileNumber: string, location: string }) => {
-        console.log(values);
-        // Swal.fire({
-        //   position: "center",
-        //   icon: "success",
-        //   title: "Updated Successfully",
-        //   showConfirmButton: false,
-        //   timer: 1500,
-        // });
-    };
-    const onChange = (e: any) => {
+    useEffect(() => {
+        if (isSuccess) { 
+            Swal.fire({
+              text: data?.message ,
+              icon: "success",
+              timer: 1500,
+              showConfirmButton: false
+            }).then(() => { 
+              refetch(); 
+            });
+        }
+        if (isError) {
+          Swal.fire({ 
+            //@ts-ignore
+            text: error?.data?.message,  
+            icon: "error",
+          });
+        }
+      }, [isSuccess, isError, error, data , refetch])   
+ 
+
+
+    const handleSubmit = async(values:{name:string , email:string , contact:string , location:string}) => { 
+        const formData = new FormData() 
+        if(image){
+            formData?.append("image" , image)
+        }       
+
+        Object.entries(values).forEach(([key, value]) => {
+            formData.append(key, value);
+        })
+      
+        await updateProfile(formData)
+    }; 
+
+
+    const onChange = (e:any) => {
         const file = e.target.files[0];
         const imgUrl = URL.createObjectURL(file);
         setImgURL(imgUrl);
@@ -103,7 +148,7 @@ const UserProfile = () => {
 
                         <div >
 
-                            <Form.Item style={{ marginBottom: 0 }} name="firstName" label={<p style={{ display: "block" }}>
+                            <Form.Item style={{ marginBottom: 0 }} name="name" label={<p style={{ display: "block" }}>
                                 Full Name
                             </p>}
                             >
@@ -138,14 +183,16 @@ const UserProfile = () => {
                                         background: "white",
                                         borderRadius: "8px",
                                         outline: "none",
-                                    }}
+                                    }} 
+
+                                    readOnly
                                 />
                             </Form.Item>
                         </div>
 
                         <div >
 
-                            <Form.Item style={{ marginBottom: 0 }} name="mobileNumber" label={<p style={{}} >
+                            <Form.Item style={{ marginBottom: 0 }} name="contact" label={<p style={{}} >
                                 Phone Number
                             </p>}>
                                 <Input
@@ -198,7 +245,7 @@ const UserProfile = () => {
 
                                 }}
                             >
-                                Save
+                             {isLoading ? "Saving..." : "Save"} 
                             </button>
                         </Form.Item>
                     </div>

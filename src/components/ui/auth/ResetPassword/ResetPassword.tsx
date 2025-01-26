@@ -37,6 +37,7 @@ const ResetPassword = () => {
 
 
   const onFinish = async(values:{ newPassword: string , confirmPassword: string}) => {   
+    console.log(values);
     await resetPasswords(values).then((res)=>{
       console.log(res);
     })

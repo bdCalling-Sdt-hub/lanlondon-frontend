@@ -7,22 +7,25 @@ const urbanist = Urbanist({ subsets: ['latin'], weight: '400' });
 
 const EnhanceExperience = () => {
     return ( 
-        <div className=' pb-[100px]'>
+        <div className=' '>
             <div  
-                className=" h-auto  z-30 container relative"
+                className=" h-auto  z-30  relative"
                 style={{
-                    backgroundImage: `url('/enhance.svg')`,
+                    backgroundImage: `url('/banner.svg')`,
                     backgroundSize: 'cover', 
                     backgroundPosition: 'center', 
                     backgroundRepeat: 'no-repeat', 
                     width: "100%", 
                     height: "100%",   
-                    objectFit: 'cover',
+                    objectFit: 'cover', 
+                    backgroundColor: "#ffe6f7"
                 }}
-            >
-                <div className="flex lg:flex-row flex-col-reverse items-center w-full">
+            > 
+            <div className='container pb-[100px]'>
+
+                <div className="flex lg:flex-row flex-col-reverse items-center  w-full">
                     {/* Left Column */}
-                    <div className=" lg:w-[56%] w-full px-4 mb-40">
+                    <div className="  w-full px-4 mb-40">
                     
                     <div className={`flex flex-col  text-[40px] font-bold `}>
                         <p className='text-[#5C5C5C]'>Enhance your experience </p> 
@@ -63,27 +66,7 @@ const EnhanceExperience = () => {
                             </a>
                         </div> 
 
-                        {/* Stats Section */}
-                        <div className="absolute bottom-10 ">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-x-7 lg:gap-y-0 gap-y-4">
-                <div className="text-center">
-                  <div className="text-white lg:text-[40px] text-[28px]  font-bold">100+</div>
-                  <div className="text-white lg:text-[20px] text-[18px] font-normal ">Views</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-white lg:text-[40px] text-[28px]   font-bold">100+</div>
-                  <div className="text-white  lg:text-[20px] text-[18px] font-normal">Downloads</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-white lg:text-[40px] text-[28px]   font-bold">20+</div>
-                  <div className="text-white  lg:text-[20px] text-[18px] font-normal">Positive reviews</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-white lg:text-[40px] text-[28px]   font-bold">4.7</div>
-                  <div className="text-white  lg:text-[20px] text-[18px] font-normal">Average Review</div>
-                </div>
-              </div>
-            </div>
+                 
                     </div>
 
                     {/* Right Column - Phone Mockup */}
@@ -97,6 +80,7 @@ const EnhanceExperience = () => {
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
         </div>
     );

@@ -52,7 +52,7 @@ function ToDo() {
         style={{  height:"43px" , width:"400px" }}
       />
         </div>
-        <button  className=' flex items-center gap-1 px-4 py-1.5 text-[14px] border-2 border-black/50 text-gray-700 rounded-md   ' onClick={() => setIsModalOpen(true)} >  
+        <button  className=' flex items-center gap-1 px-4 py-1.5 text-[14px] border-2 border-black/50  rounded-md text-white bg-black  ' onClick={() => setIsModalOpen(true)} >  
             <span> <PlusOutlined /></span>
   <span>    Add New Task </span>       
         </button>

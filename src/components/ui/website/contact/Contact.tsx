@@ -11,26 +11,26 @@ const Contact = () => {
           title: "Corporate Office",
           description: "Goethestrasse 14, 8000 Graz Mur, Austria",
         
-          icon: <Building2 className="w-7 h-7 text-[#89B551]" />,
+          icon: <Building2 className="w-7 h-7 text-pink-500" />,
         },
         {
           title: "Customer Support",
           description: ["+41 949 214802", "+41 773 34593"],
          
-          icon: <Phone className="w-7 h-7 text-[#89B551]" />,
+          icon: <Phone className="w-7 h-7 text-pink-500" />,
         },
         {
           title: "Email",
           description: "testdomain@gmail.com",
          
-          icon: <Mail className="w-7 h-7 text-[#89B551]" />,
+          icon: <Mail className="w-7 h-7 text-pink-500" />,
         },
       ];
       
       const ContactCard = ({ title, description, icon }: {title: string; description: string | string[];  icon: React.ReactNode}) => (
-        <div className="bg-[#D5FFA1] p-[35px] rounded-lg shadow-sm  border-2 border-black/30">
-          <div className="flex flex-col gap-y-3 items-start">
-            <div className={`h-12 w-12 flex items-center justify-center rounded-full bg-white`}>
+        <div className="bg-pink-200 p-[35px] rounded-lg shadow-sm  border-2 border-black/30">
+          <div className="flex flex-col gap-y-3 items-center justify-center">
+            <div className={`h-14 w-14 flex items-center justify-center rounded-full bg-white`}>
               {icon}
             </div>
             
@@ -51,11 +51,20 @@ const Contact = () => {
    
      
     return (
-        <div>
+        <div  style={{
+          backgroundImage: `url('/banner.svg')`,
+          backgroundSize: 'cover', 
+          backgroundPosition: 'center', 
+          backgroundRepeat: 'no-repeat', 
+          width: "100%", 
+          height: "100%",   
+          objectFit: 'cover', 
+          backgroundColor: "#ffe6f7"
+      }}>
          
             <div className=" ">
       <div className="container mx-auto pb-[146px]">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-[100px] mb-[100px]">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-[100px] mb-[100px]">
         {contactDetails.map((detail, index) => (
       <ContactCard key={index} {...detail} />
     ))} 
@@ -107,7 +116,7 @@ const Contact = () => {
 
             <button
               type="submit"
-              className="px-6 py-2 bg-[#c3eb90] text-black rounded-md  font-medium transition-colors duration-200 border-2 border-black/30"
+              className="px-6 py-2 bg-pink-200 text-black rounded-md  font-medium transition-colors duration-200 border-2 border-black/30"
             >
               Submit your message
             </button>
