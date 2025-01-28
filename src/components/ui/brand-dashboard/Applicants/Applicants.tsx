@@ -1,71 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
+import { imageUrl } from '@/redux/base/baseApi';
+import { useGetApplicantsQuery } from '@/redux/features/brand-dashboardApi/applicants';
 import { ConfigProvider, Input, Table } from 'antd'
 import { Search } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
-
-
-
-
-const data = [
-    {
-        key: "1",
-        image: "https://randomuser.me/api/portraits/men/1.jpg",
-        name: "John Doe",
-        location: "New York, USA",
-        date: "2025-01-20",
-    },
-    {
-        key: "2",
-        image: "https://randomuser.me/api/portraits/women/2.jpg",
-        name: "Jane Smith",
-        location: "Los Angeles, USA",
-        date: "2025-01-20",
-    },
-    {
-        key: "3",
-        image: "https://randomuser.me/api/portraits/men/3.jpg",
-        name: "Michael Johnson",
-        location: "Chicago, USA",
-        date: "2025-01-20",
-    },
-    {
-        key: "4",
-        image: "https://randomuser.me/api/portraits/women/4.jpg",
-        name: "Emily Davis",
-        location: "Houston, USA",
-        date: "2025-01-20",
-    },
-    {
-        key: "5",
-        image: "https://randomuser.me/api/portraits/men/5.jpg",
-        name: "Chris Brown",
-        location: "Phoenix, USA",
-        date: "2025-01-20",
-    },
-    {
-        key: "6",
-        image: "https://randomuser.me/api/portraits/women/6.jpg",
-        name: "Sophia Wilson",
-        location: "Philadelphia, USA",
-        date: "2025-01-20",
-    },
-    {
-        key: "7",
-        image: "https://randomuser.me/api/portraits/men/7.jpg",
-        name: "David Taylor",
-        location: "San Antonio, USA",
-        date: "2025-01-20",
-    },
-    {
-        key: "8",
-        image: "https://randomuser.me/api/portraits/women/8.jpg",
-        name: "Olivia Martinez",
-        location: "San Diego, USA",
-        date: "2025-01-20",
-    },
-];
+import { AiFillInstagram } from 'react-icons/ai';
+import { FaFacebookF,  FaYoutube } from 'react-icons/fa';
+import { RiTiktokFill } from 'react-icons/ri';
 
 
 
@@ -73,8 +16,11 @@ const Applicants = () => {
     const [search, setSearch] = useState("") 
     const router = useRouter()
     const [page, setPage] = useState<number>(1);
-    const itemsPerPage = 10; 
-    console.log(search);
+    const itemsPerPage = 10;  
+    const {data:applicants} = useGetApplicantsQuery({page, search})
+    console.log(applicants); 
+
+
  
     const handleDetails =(id:string)=>{
         router.push(`/applicants/${id}`)
@@ -90,28 +36,36 @@ const Applicants = () => {
         },
         {
             title: "Creator",
-            dataIndex: "user",
-            key: "user",
+            dataIndex: "influencer",
+            key: "influencer",
             render: (_:any,record:any) => <div className='flex items-center gap-x-2'>
                 <img 
-                    src={record?.image}
+                    src={record?.influencer?.profile?.startsWith("http") ? record?.influencer?.profile : `${imageUrl}${record?.influencer?.profile}`}
                     style={{height: 40, width: 40, borderRadius: 8}} 
                     alt=""
                 />
-                <p> {record?.name}</p>
+                <p> {record?.influencer?.name}</p>
             </div>
         },
         
         {
             title: "Location",
-            dataIndex: "location",
-            key: "location",
+            dataIndex: "influencer",
+            key: "influencer", 
+            render: (_:any,record:any) => <p>{record?.influencer?.location}</p>
            
         }, 
         {
             title: "View Social",
-            dataIndex: "date",
-            key: "date",
+            dataIndex: "influencer",
+            key: "influencer", 
+            render: (_:any,record:any) => <div className='flex items-center gap-x-2'>  
+             <a href={record?.influencer?.facebook}>  <FaFacebookF size={20} className="text-blue-600" /> </a> 
+                <a href={record?.influencer?.instagram}> <AiFillInstagram size={21} className="text-pink-600" /></a>
+            <a href={record?.influencer?.tiktok}> <RiTiktokFill size={20} className="text-black" /> </a> 
+            <a href={record?.influencer?.youtube}>  <FaYoutube size={22} className="text-red-600" /> </a>
+
+            </div>     
         },
         {
             title: "ACTIONS",
@@ -119,7 +73,7 @@ const Applicants = () => {
             key: "actions",
             render: (_:any,record:any) => 
                 <div className=' flex items-center gap-x-3 '>  
-                <button className='text-white bg-black py-1 px-4 '> Details</button>
+                <button className='text-white bg-black py-1 px-4 ' onClick={()=>handleDetails(record?._id)}> Details</button>
                 <button className='text-[#FF3131] bg-[#ffd6d6] py-1 px-4 rounded-md '> Decline</button>
                 <button className='text-black bg-[#c1ff72] py-1 px-4 rounded-md '> Accept</button>
 
@@ -163,7 +117,7 @@ const Applicants = () => {
             >
                 <Table 
                     columns={columns} 
-                    dataSource={data} 
+                    dataSource={applicants} 
                     pagination={{
                         current: page,
                         onChange: (page)=> setPage(page)

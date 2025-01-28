@@ -1,9 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+//@ts-nocheck
 "use client"
 import { useCreateQuestionsMutation } from "@/redux/features/brand-dashboardApi/campaign";
 import { Form, Input, Select, Button, Space } from "antd";
 import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GoPlus } from "react-icons/go";
+import Swal from "sweetalert2";
 
 const { Option } = Select;
 
@@ -13,8 +17,28 @@ const AddQuestions = () => {
   const [showOptionsField, setShowOptionsField] = useState(false); 
   const searchParams = useSearchParams();
   const id = searchParams.get("id"); 
-  const [createQuestions] = useCreateQuestionsMutation();
-  console.log(id);
+  const [createQuestions , {  isError , isSuccess , data , error }] = useCreateQuestionsMutation();
+ 
+      useEffect(() => {
+            if (isSuccess) {
+              if (data) {
+                Swal.fire({
+                  position: "center",
+                  text: data?.message,
+                  icon: "success",
+                  timer: 1500,
+                  showConfirmButton: false
+                })
+              }
+            }
+            if (isError) {
+              Swal.fire({
+                position: "center",
+                text: error?.data?.message,
+                icon: "error",
+              });
+            }
+          }, [isSuccess, isError, error, data , form ]);  
 
   const handleSelectChange = (value: string) => {
     setShowOptionsField(value === "RADIO");

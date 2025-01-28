@@ -1,137 +1,123 @@
-import { ArrowLeft } from 'lucide-react';
-import { AiFillInstagram } from 'react-icons/ai';
-import { FaFacebookF, FaTiktok, FaYoutube } from 'react-icons/fa';
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+"use client";
+import { imageUrl } from "@/redux/base/baseApi";
+import { useApplicantsByIdQuery } from "@/redux/features/brand-dashboardApi/applicants";
+import { useCreateFavoriteMutation } from "@/redux/features/brand-dashboardApi/favorite";
+import { ArrowLeft } from "lucide-react";
+import { useParams, useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { AiFillInstagram } from "react-icons/ai";
+import { FaFacebookF, FaTiktok, FaYoutube } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 export default function Details() {
+  const { id } = useParams();
+  const router = useRouter();
+  const { data: details } = useApplicantsByIdQuery(id); 
+  const [createFavorite , { isSuccess , isError , error , data }] = useCreateFavoriteMutation()
+
+     useEffect(() => {
+       if (isSuccess) {
+         if (data) {
+           Swal.fire({
+             text: data?.message,
+             icon: "success",
+             timer: 1500,
+             showConfirmButton: false
+           })
+         }
+       }
+       if (isError) {
+         Swal.fire({
+           //@ts-ignore
+           text: error?.data?.message,
+           icon: "error",
+         })
+       }
+     }, [isSuccess, isError, error, data  ]);  
+
+  const handleFavorite = async(id:string)=>{  
+
+    const data = {
+      influencer: id
+    }
+    await createFavorite(data)
+  }
+ 
   return (
-    <div className=" ">
+    <div>
       {/* Header */}
       <div className="flex items-center justify-between p-4">
         <div className="flex items-center gap-2">
-          <button className="hover:bg-gray-100 p-1 rounded-full">
+          <button
+            className="hover:bg-gray-100 p-1 rounded-full"
+            onClick={() => router.push("/applicants")}
+          >
             <ArrowLeft size={20} />
           </button>
           <h1 className="text-xl font-semibold">Campaign Applicants</h1>
         </div>
         <div className="flex gap-2">
-          <button className="px-4 py-2 text-sm border border-black text-black rounded-md hover:bg-black hover:text-white">
+          <button className="px-4 py-2 text-sm border border-black text-black rounded-md hover:bg-black hover:text-white" onClick={()=>handleFavorite(details?.influencer?._id)} >
             Add to Favorite
-          </button>
-          <button className="px-5 py-1.5 text-sm bg-red-200 text-red-800 rounded-md  font-semibold">
-            Decline
-          </button>
-          <button className="px-6 py-1.5 text-sm bg-primary rounded-md  text-black font-semibold">
-            Accept
-          </button>
+          </button>   
         </div>
       </div>
 
       {/* Main Content */}
-      <div className=" bg-white p-6 rounded-xl ">
-        {/* Profile Card */} 
-        <div className=' w-1/2 border border-gray-300 rounded-xl mb-6'>
-        <div className=" rounded-lg p-4 my-2 ">
-          <div className=" flex items-center gap-5 px-4"> 
-            <div className='w-[30%] '> 
-            <img
-              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-              alt="Jason Price"
-              className="rounded-full h-[110px] w-[110px]" 
-            /> 
-            </div>
-            <div className=" flex  items-center"> 
-                <div className=' border-e-2 border-gray-200 p-4 '>
-              <h2 className="text-xl font-medium mb-2">Jason Price</h2>
-              <p className="text-gray-600 text-[16px] mb-3 ">
-                The point of using Lorem Ipsum is that it has a more-or-less normal distribution
-                of letters. Content here, content here, making it look like readable English.
-              </p>
+      <div className="bg-white p-6 rounded-xl">
+        {/* Profile Card */}
+        <div className="w-1/2 border border-gray-300 rounded-xl mb-6">
+          <div className="rounded-lg p-4 my-2">
+            <div className="flex items-center gap-5 px-4">
+              <div className="w-[30%]">
+                <img
+                  src={
+                    details?.influencer?.profile?.startsWith("http")
+                      ? details?.influencer?.profile : `${imageUrl}${details?.influencer?.profile}`
+                  }
+                  alt={details?.influencer?.name || "Applicant"}
+                  className="rounded-full h-[110px] w-[110px]"
+                />
+              </div>
+              <div className="flex items-center">
+                <div className="border-e-2 border-gray-200 p-4">
+                  <h2 className="text-xl font-medium mb-2">
+                    {details?.influencer?.name || "N/A"}
+                  </h2>
+                  <p className="text-gray-600 text-[16px] mb-3">
+                    {details?.influencer?.about ||
+                      "Bio not available."}
+                  </p>
                 </div>
-              <div className="flex flex-col ps-3 gap-4">
-                <div className="flex items-center gap-1">
-                  <FaFacebookF size={20} className="text-blue-600" />
-                  <span className="text-sm font-medium">2.2K</span>
-                </div>
-                <div className="flex items-center gap-1">
-                  <AiFillInstagram size={21} className="text-pink-600" />
-                  <span className="text-sm">2.2K</span>
-                </div>
-                <div className="flex items-center gap-1">
-                  <FaYoutube size={22} className="text-red-600" />
-                  <span className="text-sm">2.2K</span>
-                </div>
-                <div className="flex items-center gap-1">
-                  <FaTiktok size={20} />
-                  <span className="text-sm">2.2K</span>
+                <div className="flex flex-col ps-3 gap-4">
+                  <div className="flex items-center gap-1">
+                    <FaFacebookF size={20} className="text-blue-600" />
+                    <span className="text-sm font-medium">2.2K</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <AiFillInstagram size={21} className="text-pink-600" />
+                    <span className="text-sm">2.2K</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <FaYoutube size={22} className="text-red-600" />
+                    <span className="text-sm">2.2K</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <FaTiktok size={20} />
+                    <span className="text-sm">2.2K</span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        </div>
 
         {/* Form Grid */}
         <div className="grid grid-cols-2 gap-6">
-          <FormField
-            label="What is the average age range of your audience?"
-            placeholder="12-45 years old"
-          />
-          <FormField
-            label="What is your estimated timeline for content submission?"
-            placeholder=""
-          />
-          <FormField
-            label="What percentage of your audience identifies as each gender?"
-            placeholder="Female 60%"
-          />
-          <FormField
-            label="How will you promote the brand/product?"
-            placeholder=""
-          />
-          <FormField
-            label="Where is the majority of your audience located?"
-            placeholder="Los Angeles, Australia, Canada"
-          />
-          <FormField
-            label="Have You Worked on Similar Campaigns Before?"
-            placeholder=""
-          />
-          <FormField
-            label="What Platform will you use to promote?"
-            placeholder="Instagram, Facebook, Twitter, Youtube"
-          />
-          <FormField
-            label="How will you promote the brand/product?"
-            placeholder=""
-          />
-          <FormField
-            label="What type of content can you deliver?"
-            placeholder=""
-          />
-          <FormField
-            label="Have You Worked on Similar Campaigns Before?"
-            placeholder=""
-          />
-          <FormField
-            label="How many posts can you commit to publishing for this campaign?"
-            placeholder=""
-          />
-          <FormField
-            label="Do You Align With the Brand's Values and Messaging?"
-            placeholder=""
-          />
-          <div className="col-start-2">
-            <FormField
-              label="What is your estimated timeline for content submission?"
-              placeholder=""
-            />
-          </div>
-          <div className="col-start-2">
-            <FormField
-              label="Do you agree to give signature to contractual agreement?"
-              placeholder=""
-            />
-          </div>
+          {details?.questions?.map((q:{ _id: string; question: string; answer: string; }) => (
+            <FormField key={q._id} label={q.question} placeholder={q.answer} />
+          ))}
         </div>
       </div>
     </div>

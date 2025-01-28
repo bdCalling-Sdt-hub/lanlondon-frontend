@@ -1,11 +1,44 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import { useMakeTodoMutation } from '@/redux/features/brand-dashboardApi/todo';
 import { Form, Input, Modal } from 'antd';
-import React from 'react';
+import React, { useEffect } from 'react';
+import Swal from 'sweetalert2';
 
-const AddTaskModal = ({ isModalOpen, setIsModalOpen }:{ isModalOpen: boolean, setIsModalOpen: (value: boolean) => void }) => { 
-    const [form] = Form.useForm() 
+const AddTaskModal = ({ isModalOpen, setIsModalOpen , refetch }:{ isModalOpen: boolean, setIsModalOpen: (value: boolean) => void , refetch: any }) => { 
+    const [form] = Form.useForm()  
+    const [makeTodo , { isError , isSuccess , data , error }] = useMakeTodoMutation() 
+ 
+   useEffect(() => {
+     if (isSuccess) {
+       if (data) {
+         Swal.fire({
+           text: data?.message,
+           icon: "success",
+           timer: 1500,
+           showConfirmButton: false
+         }).then(() => {  
+           form.resetFields(); 
+           setIsModalOpen(false);
+           refetch();
+         })
+       }
+     }
+     if (isError) {
+       Swal.fire({
+         //@ts-ignore
+         text: error?.data?.message,
+         icon: "error",
+       })
+     }
+   }, [isSuccess, isError, error, data, form, setIsModalOpen , refetch ]); 
    
-    const handleAddTask = () => {
-        setIsModalOpen(false);
+    const handleAddTask = async(values:{subject:string , details:string}) => { 
+      console.log(values); 
+
+      await makeTodo(values).then((res) => {
+        console.log(res); 
+      })
+       
       }; 
 
     return (
