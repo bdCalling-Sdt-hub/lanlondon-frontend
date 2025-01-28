@@ -1,35 +1,86 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable @typescript-eslint/no-explicit-any */ 
+//@ts-nocheck
 "use client"
 
 import { ArrowLeft } from "lucide-react"
-import { Input, Upload as AntUpload, Form } from "antd"
-import { InboxOutlined } from "@ant-design/icons";
-
-const { TextArea } = Input
-const { Dragger } = AntUpload
+import { Input, Form } from "antd"
+import { PiImageThin } from 'react-icons/pi';
+import { useEffect, useState } from "react";
+import { useCreateBusinessInfoMutation, useGetBusinessInfoQuery } from "@/redux/features/brand-dashboardApi/businessInfo";
+import Swal from "sweetalert2";
+import { imageUrl } from "@/redux/base/baseApi";
 
 export default function BusinessInfo() {
-    const [form] = Form.useForm();
+    const [form] = Form.useForm();  
+    const [imgFile, setImgFile] = useState(null);  
+    const [imgUrl , setImgUrl] =useState<string | null>()    
+    const [createBusinessInfo , {isLoading ,  error , data ,  isSuccess , isError}] = useCreateBusinessInfoMutation(); 
+    const {data:businessInfo } = useGetBusinessInfoQuery(undefined); 
+  console.log(businessInfo);
 
-    const uploadProps = {
-      name: "file",
-      multiple: true,
-      action: "https://www.mocky.io/v2/5cc8019d300000980a055e76", // Replace with your actual upload URL
-      onChange(info:any) {
-        const { status } = info.file;
-        if (status !== "uploading") {
-          console.log(info.file, info.fileList);
-        }
-        if (status === "done") {
-          console.log(`${info.file.name} file uploaded successfully.`);
-        } else if (status === "error") {
-          console.log(`${info.file.name} file upload failed.`);
-        }
-      },
-    };
-  
-    const onFinish = (values:any) => {
-      console.log("Form values:", values);
+    const handleChange = (e) => { 
+      const file = e.target.files[0]
+      setImgFile(file); 
+      setImgUrl(URL.createObjectURL(file))
+    };  
+
+    useEffect(() => {
+      if (businessInfo) {
+        form.setFieldsValue({
+          name: businessInfo?.name,
+          facebook: businessInfo?.facebook,
+          instagram: businessInfo?.instagram,
+          linkedin: businessInfo?.linkedin,
+          website: businessInfo?.website,
+          twitter: businessInfo?.twitter,
+        }); 
+
+        setImgUrl(businessInfo?.image?.startsWith("http") ? businessInfo?.image : `${imageUrl}${businessInfo?.image}`)
+      }
+    }, [businessInfo , form]);
+ 
+
+    
+        useEffect(() => {
+          if (isSuccess) {
+            if (data) {
+              Swal.fire({
+                position: "center",
+                text: data?.message,
+                icon: "success",
+                timer: 1500,
+                showConfirmButton: false
+              }).then(() => {
+               form.resetFields() 
+               setImgFile(null); 
+                setImgUrl(null);
+              });
+            }
+          }
+          if (isError) {
+            Swal.fire({
+              //@ts-ignore
+              text: error?.data?.message,
+              icon: "error",
+            });
+          }
+        }, [isSuccess, isError, error, data , form ]);  
+
+    const onFinish = async(values:any) => {
+      const formData = new FormData();
+
+      if(imgFile){
+        formData.append("image", imgFile)
+      } 
+
+      Object.entries(values).forEach(([key, value]) => {  
+        formData.append(key, value);
+      })
+
+      await createBusinessInfo(formData).then((res)=>{
+        console.log(res);
+      })
     };
 
   return (
@@ -59,7 +110,7 @@ export default function BusinessInfo() {
         {/* Left Column - Text Inputs */}
         <div className="space-y-6">
           <Form.Item
-            name="brandName"
+            name="name"
             label={<p className="text-[18px] text-gray-500">Brand Name</p>}
             rules={[{ required: true, message: "Please enter the brand name" }]}
           >
@@ -67,7 +118,7 @@ export default function BusinessInfo() {
           </Form.Item>
 
           <Form.Item
-            name="websiteLink"
+            name="website"
             label={<p className="text-[18px] text-gray-500">Brand Website Link</p>}
             rules={[
               { required: true, message: "Please enter the website URL" },
@@ -75,41 +126,95 @@ export default function BusinessInfo() {
             ]}
           >
             <Input placeholder="Enter website URL" style={{ height:"45px"}} />
+          </Form.Item> 
+
+          <Form.Item
+            name="facebook"
+            label={<p className="text-[18px] text-gray-500">Facebook Link</p>}
+            rules={[
+              { required: true, message: "Please enter the facebook URL" },
+              { type: "url", message: "Please enter a valid URL" },
+            ]}
+          >
+            <Input placeholder="Enter facebook URL" style={{ height:"45px"}} />
           </Form.Item>
 
           <Form.Item
-            name="socialHandles"
-            label={<p className="text-[18px] text-gray-500">Brand Social Handles Link</p>}
-            rules={[{ required: true, message: "Please enter social media handles" }]}
+            name="linkedin"
+            label={<p className="text-[18px] text-gray-500">Linkedin Link</p>}
+            rules={[
+              { required: true, message: "Please enter the linkedin URL" },
+              { type: "url", message: "Please enter a valid URL" },
+            ]}
           >
-            <TextArea
-              placeholder="Enter social media handles"
-              rows={6}
-            />
+            <Input placeholder="Enter linkedin URL" style={{ height:"45px"}} />
           </Form.Item>
+   
+
+   
         </div>
 
-        {/* Right Column - Image Upload */}
+        {/* Right Column - Image Upload */} 
+        <div> 
+
+        <Form.Item
+            name="twitter"
+            label={<p className="text-[18px] text-gray-500">Twitter Link</p>}
+            rules={[
+              { required: true, message: "Please enter the twitter URL" },
+              { type: "url", message: "Please enter a valid URL" },
+            ]}
+          >
+            <Input placeholder="Enter twitter URL" style={{ height:"45px"}} />
+          </Form.Item>
+   
+          <Form.Item
+            name="instagram"
+            label={<p className="text-[18px] text-gray-500">Instagram Link</p>}
+            rules={[
+              { required: true, message: "Please enter the instagram URL" },
+              { type: "url", message: "Please enter a valid URL" },
+            ]}
+          >
+            <Input placeholder="Enter instagram URL" style={{ height:"45px"}} />
+          </Form.Item> 
         <div>
-          <Form.Item
-            name="images"
-            label={<p className="text-[18px] text-gray-500">Brand Product/Service Images</p>}
-            valuePropName="fileList"
-            getValueFromEvent={(e) => (Array.isArray(e) ? e : e?.fileList)} 
-            
-          >
-            <Dragger {...uploadProps} className="bg-white rounded-lg" >
-              <div className="p-8 text-center" style={{ 
-                height:"300px"
-            }}>
-                <div className="flex justify-center mb-4">
-                  <InboxOutlined className="h-16 w-16 text-gray-400" />
+                <p className="text-[#6D6D6D] py-1"> Brand Product/Service Images</p> 
+                <label
+                htmlFor="image"
+                style={{ display: "block", backgroundColor:"white" }}
+                className="p-3 border rounded-lg"
+              > 
+              
+                <div  >
+                  <div className="flex justify-center items-center w-full h-full   py-4">
+                    {imgUrl ? (
+                      <img src={imgUrl} alt="" />
+                    ) 
+                     : (
+                      <PiImageThin className="text-7xl flex items-center justify-center text-[#666666] font-[400]" />
+                    )}
+                  </div>
+
+                  <div className="hidden">
+                    <Input
+                      id="image"
+                      type="file"
+                      onInput={handleChange}
+                      style={{
+                        border: "1px solid #E0E4EC",
+                        height: "52px",
+                        background: "white",
+                        borderRadius: "8px",
+                        outline: "none",
+                      }}
+                    />
+                  </div>
                 </div>
-                <p className="text-gray-600">Click or drag files to upload</p>
-              </div>
-            </Dragger>
-          </Form.Item>
+              </label>
+                </div>
         </div>
+          
       </div>
 
       {/* Submit Button */}
@@ -118,7 +223,7 @@ export default function BusinessInfo() {
           type="submit"
           className="bg-black text-white py-2 px-8 mt-10 rounded "
         >
-          Submit
+        {isLoading ? "Loading..." : "Submit"}
         </button>
       </Form.Item>
     </Form>

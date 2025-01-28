@@ -5,7 +5,9 @@ import { GoPlus } from "react-icons/go";
 
 const { Option } = Select;
 
-const AddQuestionModal = ({open , setOpen}:{open: boolean, setOpen: (value: boolean) => void}) => { 
+const AddQuestionModal = ({open , setOpen , id}:{open: boolean, setOpen: (value: boolean) => void , id: string}) => { 
+
+console.log(id);
 
     const [form] = Form.useForm();
     const [showOptionsField, setShowOptionsField] = useState(false);

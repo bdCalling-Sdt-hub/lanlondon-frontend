@@ -74,10 +74,10 @@ const Sidebar = () => {
             key: '/profile',
             label: <Link href="/profile">Profile</Link>,
           }, 
-          {
-            key: '/support',
-            label: <Link href="/support">Support</Link>,
-          }, 
+          // {
+          //   key: '/support',
+          //   label: <Link href="/support">Support</Link>,
+          // }, 
           {
             key: '/business-info',
             label: <Link href="/business-info">Business Information</Link>,
