@@ -4,9 +4,8 @@
 import { Form, Input, DatePicker, ConfigProvider, Select } from "antd"
 import { PiImageThin } from 'react-icons/pi';
 import { useEffect, useState } from "react";
-
 import moment from "moment";
-import { useCreateCampaignMutation, useGetCampaignQuery } from "@/redux/features/brand-dashboardApi/campaign";
+import { useCreateCampaignMutation, useGetCampaignQuery, useUpdateCampaignMutation } from "@/redux/features/brand-dashboardApi/campaign";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import { imageUrl } from "@/redux/base/baseApi";
@@ -20,7 +19,8 @@ const AddCampaign = () => {
   const [hashtagArray, setHashtagArray] = useState([""]);
   const [imgFile, setImgFile] = useState(null);
   const [imgUrl, setImgUrl] = useState<string | null>()
-  const [createCampaign, { isLoading, error, data, isSuccess, isError }] = useCreateCampaignMutation()
+  const [createCampaign, { isLoading, error, data, isSuccess, isError }] = useCreateCampaignMutation() 
+  const [updateCampaign] = useUpdateCampaignMutation()
   const { data: getCampaignData, refetch } = useGetCampaignQuery(undefined)
   console.log(getCampaignData);
   const router = useRouter()
@@ -148,9 +148,32 @@ const AddCampaign = () => {
 
     Object.entries(data).forEach(([key, value]) => {
       formData.append(key, value);
-    });
+    }); 
 
-    await createCampaign(formData)
+if(getCampaignData?._id){  
+  
+  await updateCampaign(formData).then((res) => {  
+
+    if(res?.data?.success){
+      Swal.fire({
+        text: res?.data?.message,
+        icon: "success",
+        timer: 1500,
+        showConfirmButton: false
+      })
+    }else{
+      Swal.fire({
+        text: res?.data?.message,
+        icon: "error",
+      })
+    }
+  })
+} 
+else{  
+  await createCampaign(formData)
+}
+
+  
 
   };
 

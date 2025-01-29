@@ -10,6 +10,14 @@ const campaignApi = baseApi.injectEndpoints({
                 method: "POST",
                 body: data,
             })
+        }), 
+
+        updateCampaign: build.mutation({    
+            query: (data) => ({
+                url: "/campaign",
+                method: "PATCH",
+                body: data,
+            })
         }),
 
         getCampaign: build.query({
@@ -30,4 +38,4 @@ const campaignApi = baseApi.injectEndpoints({
     })
 })
 
-export const { useCreateCampaignMutation , useGetCampaignQuery , useCreateQuestionsMutation } = campaignApi
+export const { useCreateCampaignMutation , useGetCampaignQuery , useCreateQuestionsMutation , useUpdateCampaignMutation } = campaignApi

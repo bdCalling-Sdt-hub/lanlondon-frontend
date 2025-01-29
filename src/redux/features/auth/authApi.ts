@@ -1,7 +1,4 @@
 import { baseApi } from "@/redux/base/baseApi";
-import { GetLocalStorage } from "@/util/LocalStroage";
-const resetToken = GetLocalStorage("resetToken")  
-
 
 const authApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -39,18 +36,15 @@ const authApi = baseApi.injectEndpoints({
     }),
 
     resetPasswords: build.mutation({
-      query:(value)=>{ 
-
-        console.log("value", value);
+      query: (value) => {
         return {
-          url:"/auth/reset-password" ,
-          headers: {authorization: resetToken},
-          method:"POST" ,
-          body: value 
+          url: "/auth/reset-password",
+          headers: { "authorization": localStorage.getItem("resetToken") },
+          method: "POST",
+          body: value
         }
       }
-
-  }) ,  
+    }),
 
     changePassword: build.mutation({
       query: (data) => ({
@@ -58,11 +52,11 @@ const authApi = baseApi.injectEndpoints({
         method: "POST",
         body: data,
       }),
-    }), 
+    }),
 
     brandProfile: build.query({
       query: () => "/user/profile",
-    }),  
+    }),
 
     updateProfile: build.mutation({
       query: (data) => ({
@@ -81,8 +75,8 @@ export const {
   useLoginUserMutation,
   useChangePasswordMutation,
   useVerifyEmailMutation,
- useResetPasswordsMutation ,
-  useForgetPasswordMutation , 
-  useBrandProfileQuery, 
+  useResetPasswordsMutation,
+  useForgetPasswordMutation,
+  useBrandProfileQuery,
   useUpdateProfileMutation
 } = authApi;

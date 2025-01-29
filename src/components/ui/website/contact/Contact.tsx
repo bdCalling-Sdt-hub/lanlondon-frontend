@@ -2,10 +2,14 @@
 
 import { Building2, Phone, Mail } from "lucide-react";
 import React from 'react'; 
-import { Form, Input } from "antd";
+import { Form, Input, message } from "antd";
 import TextInput from "@/components/shared/TextInput";
+import { useMakeContactMutation } from "@/redux/features/website/contact";
 
-const Contact = () => { 
+const Contact = () => {  
+const [makeContact] = useMakeContactMutation(); 
+const [form] = Form.useForm();
+
     const contactDetails = [
         {
           title: "Corporate Office",
@@ -47,7 +51,19 @@ const Contact = () => {
            
           </div>
         </div>
-      ); 
+      );  
+
+
+      const onFinish = async(values:{name:string , email:string , message:string}) => {
+       await makeContact(values).then((res) => { 
+        if(res?.data?.success){
+          message.success(res?.data?.message)  
+          form.resetFields()
+        }else{
+          message.error(res?.data?.message)  
+        }
+       })
+      };
    
      
     return (
@@ -82,11 +98,11 @@ const Contact = () => {
             Feel free to get in touch, and we&apos;ll be happy to assist!
           </p>
 
-          <Form  className="space-y-4" layout="vertical">
+          <Form  className="space-y-4" layout="vertical" onFinish={onFinish} form={form}>
         <TextInput name="name" label="Full Name" />
         <TextInput name="email" label="Email" />
         
-            <Form.Item label={<p className="text-[#4E4E4E] text-[16px]">Message</p>}  rules={[
+            <Form.Item name="message" label={<p className="text-[#4E4E4E] text-[16px]">Message</p>}  rules={[
         {
           required: true,
           message: `Please enter your ${"Message".toLowerCase()}`,
@@ -94,8 +110,7 @@ const Contact = () => {
       ]}>
               <Input.TextArea
                 placeholder="Your message" 
-                name="message" 
-                
+                name="message"             
                 rows={5} 
                 style={{
                     resize: "none", 

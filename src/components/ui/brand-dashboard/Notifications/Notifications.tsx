@@ -1,40 +1,33 @@
 "use client"
 import React, { useState } from 'react';
 import { ConfigProvider, Pagination } from 'antd';
+import { useGetNotificationQuery } from '@/redux/features/brand-dashboardApi/notification';
+import moment from 'moment';
 
 const Notifications = () => {
-    const [page, setPage] = useState(1)
+    const [page, setPage] = useState(1)  
+    const {data} = useGetNotificationQuery(page) 
+    console.log(data);
 
     return (
         <div>
-            <div className='flex items-center justify-between mb-4'> 
-            <h1 className="text-xl font-semibold text-black">All Notifications</h1>
-              
-                <button className='bg-primary text-black h-10 px-4 rounded-md'>Read All</button>
+            <div className='flex items-center justify-between mb-4'>
+                <h1 className="text-xl font-semibold text-black">All Notifications</h1>          
             </div>
 
             <div className='grid grid-cols-1 gap-5 bg-white p-4 rounded-lg'>
                 {
-                    [...Array(8).keys()].map((notification, index)=>{
-                        return(
-                            <div key={index} className='border-b-[1px] pb-2 border-[#d9d9d9] flex items-center gap-3'>
-                                <img 
-                                    style={{
-                                        height:"50px",
-                                        width:"50px",
-                                        borderRadius:"100%",
-                                        border:"2px solid gray"
-                                    }} 
-                                    src='https://img.freepik.com/free-photo/everything-is-okay-cheerful-friendly-looking-caucasian-guy-with-moustache-beard-raising-hand-with-ok-great-gesture-giving-approval-like-having-situation-control_176420-22386.jpg' 
-                                    alt=''
-                                />
-                                <div>
-                                    <p><span>Sanchez haro manuel</span> start a new trip at 5pm. Trip No.56. Trip started from Mexico city</p>
-                                    <p style={{color:"gray",marginTop:"4px"}}>1hr ago</p>
+                    data?.notifications?.map((value:{text:string, createdAt:string}, index:number) => {
+                        return (
+                            <div key={index} className=''>
+                              
+                                <div className='flex items-center justify-between'>
+                                    <p>{value?.text}</p>
+                                    <p style={{ color: "gray", marginTop: "4px" }}> {moment(value?.createdAt).format("hh:mm A")}</p>
                                 </div>
                             </div>
                         )
-                    })  
+                    })
                 }
             </div>
 
@@ -45,15 +38,15 @@ const Notifications = () => {
                         components: {
                             Pagination: {
                                 itemActiveBg: "#C1FF72",
-                               
+
                             }
                         },
-                        token:{
+                        token: {
                             colorPrimary: "black"
                         }
                     }}
                 >
-                    <Pagination current={page} total={50} onChange={(page)=> setPage(page)} showQuickJumper={false} showSizeChanger={false}/>
+                    <Pagination current={page} total={data?.pagination?.total} onChange={(page) => setPage(page)} showQuickJumper={false} showSizeChanger={false} />
                 </ConfigProvider>
             </div>
         </div>

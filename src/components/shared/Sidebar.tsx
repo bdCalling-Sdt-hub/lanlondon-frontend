@@ -28,7 +28,7 @@ const Sidebar = () => {
       {
         key: '/brand-home',
         icon: <AiOutlineDashboard size={24} />,
-        label: <Link href="/brand-home">Campaign</Link>,
+        label: <Link href="/brand-home">Analytics</Link>,
       },
       {
         key: '/favorites',

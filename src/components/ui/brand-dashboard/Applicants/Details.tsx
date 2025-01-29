@@ -3,47 +3,63 @@
 import { imageUrl } from "@/redux/base/baseApi";
 import { useApplicantsByIdQuery } from "@/redux/features/brand-dashboardApi/applicants";
 import { useCreateFavoriteMutation } from "@/redux/features/brand-dashboardApi/favorite";
+import { useCreateInitialChatMutation } from "@/redux/features/brand-dashboardApi/inbox";
 import { ArrowLeft } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { AiFillInstagram } from "react-icons/ai";
 import { FaFacebookF, FaTiktok, FaYoutube } from "react-icons/fa";
+import { FiSend } from "react-icons/fi";
 import Swal from "sweetalert2";
 
 export default function Details() {
   const { id } = useParams();
   const router = useRouter();
-  const { data: details } = useApplicantsByIdQuery(id); 
-  const [createFavorite , { isSuccess , isError , error , data }] = useCreateFavoriteMutation()
+  const { data: details } = useApplicantsByIdQuery(id);
+  const [createFavorite, { isSuccess, isError, error, data }] = useCreateFavoriteMutation()
+  const [createInitialChat] = useCreateInitialChatMutation()
 
-     useEffect(() => {
-       if (isSuccess) {
-         if (data) {
-           Swal.fire({
-             text: data?.message,
-             icon: "success",
-             timer: 1500,
-             showConfirmButton: false
-           })
-         }
-       }
-       if (isError) {
-         Swal.fire({
-           //@ts-ignore
-           text: error?.data?.message,
-           icon: "error",
-         })
-       }
-     }, [isSuccess, isError, error, data  ]);  
+  useEffect(() => {
+    if (isSuccess) {
+      if (data) {
+        Swal.fire({
+          text: data?.message,
+          icon: "success",
+          timer: 1500,
+          showConfirmButton: false
+        })
+      }
+    }
+    if (isError) {
+      Swal.fire({
+        //@ts-ignore
+        text: error?.data?.message,
+        icon: "error",
+      })
+    }
+  }, [isSuccess, isError, error, data]);
 
-  const handleFavorite = async(id:string)=>{  
+  const handleFavorite = async (id: string) => {
 
     const data = {
       influencer: id
     }
     await createFavorite(data)
   }
- 
+
+  const handleMessage = async () => {
+
+    const data = {
+      influencer: details?.influencer?._id
+    }
+    await createInitialChat(data).then((res) => {
+
+      if (res?.data?.success) {
+        router.push("/inbox")
+      }
+    })
+  }
+
   return (
     <div>
       {/* Header */}
@@ -58,9 +74,18 @@ export default function Details() {
           <h1 className="text-xl font-semibold">Campaign Applicants</h1>
         </div>
         <div className="flex gap-2">
-          <button className="px-4 py-2 text-sm border border-black text-black rounded-md hover:bg-black hover:text-white" onClick={()=>handleFavorite(details?.influencer?._id)} >
+          <button className="px-4 py-2 text-sm border border-black text-black rounded-md hover:bg-black hover:text-white" onClick={() => handleFavorite(details?.influencer?._id)} >
             Add to Favorite
-          </button>   
+          </button>
+
+          <div
+            onClick={handleMessage}
+            className={`flex items-center justify-center gap-1  font-medium h-[45px] w-[120px] rounded-lg cursor-pointer bg-black text-white`}
+          >
+            <FiSend size={21} />
+            <p>Message</p>
+          </div>
+
         </div>
       </div>
 
@@ -115,7 +140,7 @@ export default function Details() {
 
         {/* Form Grid */}
         <div className="grid grid-cols-2 gap-6">
-          {details?.questions?.map((q:{ _id: string; question: string; answer: string; }) => (
+          {details?.questions?.map((q: { _id: string; question: string; answer: string; }) => (
             <FormField key={q._id} label={q.question} placeholder={q.answer} />
           ))}
         </div>

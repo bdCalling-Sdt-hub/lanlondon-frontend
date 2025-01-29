@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { AntdRegistry } from "@ant-design/nextjs-registry"; 
 import "./globals.css";
 import ReduxProvider from "@/redux/lib/ReduxProvider";
+import { UserProvider } from "@/provider/User";
 
 
 
@@ -20,8 +21,10 @@ export default function RootLayout({
         className={`antialiased`}
       >
         <AntdRegistry> 
-        <ReduxProvider >   
-          {children} 
+        <ReduxProvider >  
+        <UserProvider > 
+          {children}  
+          </UserProvider>
         </ReduxProvider>
         </AntdRegistry>
       </body>

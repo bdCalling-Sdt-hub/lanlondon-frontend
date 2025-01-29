@@ -1,65 +1,85 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 //@ts-nocheck
-"use client";
-import React, { useState } from "react";
+"use client"
+import React, { useEffect, useState } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import { useGetNotesQuery, useMakeNotesMutation } from "@/redux/features/brand-dashboardApi/calender";
+import { message } from "antd";
 
 moment.locale("en-GB");
 const localizer = momentLocalizer(moment);
 
-const eventsList = [
-  {
-    id: 0,
-    title: "All Day Event",
-    allDay: true,
-    start: new Date(2025, 1, 15),
-    end: new Date(2025, 1, 16),
-  },
-  {
-    id: 1,
-    title: "Conference",
-    start: new Date(2023, 11, 17),
-    end: new Date(2023, 11, 18),
-  },
-];
 
-export default function Calender() {
+export default function BigCalendar() {
+  const { data , refetch } = useGetNotesQuery(undefined) 
+  const [makeNotes] = useMakeNotesMutation()
+
+  const eventsList = data?.map((item: { _id: string; notes: string; date: string; }) => ({
+    id: item?._id,
+    title: item?.notes,
+    start: moment(item?.date).toDate(),
+    end: moment(item?.date).toDate(),
+  }))
+
   const [events, setEvents] = useState(eventsList);
+  const [currentDate, setCurrentDate] = useState(new Date());
 
-  // Function to handle adding a new event
-  const handleSelect = ({ start, end }: { start: Date; end: Date }) => {
-    const title = window.prompt("Enter event title:");
+  useEffect(() => {
+    if (data) {
+      const eventsList = data?.map((item: { _id: string; notes: string; date: string }) => ({
+        id: item?._id,
+        title: item?.notes,
+        start: moment(item?.date).toDate(),
+        end: moment(item?.date).toDate(),
+      }));
+      setEvents(eventsList);
+    }
+  }, [data]);
+
+  const handleSelect = async({ start }: { start: Date; }) => {
+    const title = window.prompt("Enter Your Note");
     if (title) {
       const newEvent = {
-        id: events.length, 
-        start,
-        end,
-        title,
+        date:start,
+        notes:title,
       };
-      setEvents([...events, newEvent]);
+      // setEvents([...events, newEvent]); 
+      await makeNotes(newEvent).then((res) => {
+        console.log(res); 
+        if(res?.data?.success){
+          message.success(res?.data?.message)  
+          refetch()
+        }else{
+          message.error(res?.data?.message)  
+        }
+      });
     }
+  };
+
+  const handleNavigate = (date: Date) => {
+    setCurrentDate(date);
   };
 
   const eventPropGetter = () => {
     return {
       style: {
-        backgroundColor: "#dcd4f7", 
+        backgroundColor: "#dcd4f7",
         color: "#5f3dc4",
-        borderLeft: "5px solid #7b6ed6", 
+        borderLeft: "5px solid #7b6ed6",
         borderRadius: "0px",
-        padding: "5px", 
+        padding: "5px",
         textAlign: "center",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        height: "100%", 
+        height: "100%",
       },
     };
   };
 
-  // Custom component for event rendering
+
   const EventComponent = ({ event }: { event: { title: string } }) => (
     <div>
       <span>{event.title}</span>
@@ -69,15 +89,16 @@ export default function Calender() {
   return (
     <div>
       <Calendar
-       views={["month"]}
+        views={["month"]}
         selectable
         localizer={localizer}
-        defaultDate={new Date()}      
+        date={currentDate}
         events={events}
         style={{ height: "80vh" }}
         onSelectEvent={(event) => alert(event.title)}
         onSelectSlot={handleSelect}
-        eventPropGetter={eventPropGetter} 
+        onNavigate={handleNavigate}
+        eventPropGetter={eventPropGetter}
         components={{
           event: EventComponent,
         }}
