@@ -65,7 +65,7 @@ const AddQuestions = () => {
 
   return (
     <div className="bg-white rounded-lg shadow-2xl p-[30px] w-2/3">
-      <p className="text-[20px] font-medium">Add Questions</p>
+      <p className="text-[20px] font-medium">Applicant Questions</p>
 
       <div className="mt-4">
         {questions.map((question, index) => ( 
@@ -98,7 +98,7 @@ const AddQuestions = () => {
         >
           <Form.Item
             name="questionName"
-            label="Question Name"
+            label="Question (e.g : Are you happy for the brand to reuse your content for marketing? )"
             rules={[{ required: true, message: "Please enter a question name" }]}
           >
             <Input placeholder="Enter question name" style={{ height: 45 }} />
@@ -152,7 +152,7 @@ const AddQuestions = () => {
               type="submit"
               className="bg-black text-white px-2 py-2 rounded text-[12px] "
             >
-             +  Add Question
+             +  Ask Another Question
             </button>
           </Form.Item>
         </Form>
@@ -160,7 +160,7 @@ const AddQuestions = () => {
 
         <div className="flex items-center justify-center mt-7" >
             <button className="bg-primary text-black px-8 py-2 rounded" type="submit" onClick={handleSubmitQuestions}>
-            Submit Questions
+            Submit Campaign Brief
             </button>
         </div>
     </div>

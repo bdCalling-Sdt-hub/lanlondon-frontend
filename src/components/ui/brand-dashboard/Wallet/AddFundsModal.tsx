@@ -67,7 +67,7 @@ const AddFundsModal = ({ open, setOpen }: { open: boolean, setOpen: (value: bool
           {/* Question Name */}
           <Form.Item
             name="amount"
-            label="Amount"
+            label="Amount £ (GBP)"
             rules={[{ required: true, message: "Please enter a amount" }]}
           >
             <Input placeholder="Enter amount" style={{ height: 45 }} />

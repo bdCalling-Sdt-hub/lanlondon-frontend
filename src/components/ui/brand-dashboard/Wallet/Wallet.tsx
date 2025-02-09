@@ -31,7 +31,7 @@ const columns = [
     title: "Amount",
     dataIndex: "amount",
     key: "amount",
-    render: (amount: number) => `$${amount.toLocaleString()}`,
+    render: (amount: number) => ` £ ${amount.toLocaleString()}`,
   },
 
 
@@ -71,7 +71,7 @@ export default function Wallet() {
 
   const cardData = [
     {
-      title: "Total Balance",
+      title: "Campaign Balance",
       amount: allBudget?.balance,
       icon: "/wallet1.png",
       bgColor: "bg-green-100",

@@ -19,7 +19,7 @@ const AddCampaign = () => {
   const [hashtagArray, setHashtagArray] = useState([""]);
   const [imgFile, setImgFile] = useState(null);
   const [imgUrl, setImgUrl] = useState<string | null>()
-  const [createCampaign, { isLoading, error, data, isSuccess, isError }] = useCreateCampaignMutation() 
+  const [createCampaign, { isLoading, error, data, isSuccess, isError }] = useCreateCampaignMutation()
   const [updateCampaign] = useUpdateCampaignMutation()
   const { data: getCampaignData, refetch } = useGetCampaignQuery(undefined)
   console.log(getCampaignData);
@@ -122,6 +122,26 @@ const AddCampaign = () => {
   };
 
   const onFinish = async (values) => {
+
+    if (doArray.length < 5) {
+      Swal.fire({
+        text: "Please provide at least 5 Campaign Do's before submitting!",
+        icon: "error",
+      });
+      return;
+    }
+
+
+    if (dontArray.length < 5) {
+      Swal.fire({
+        text: "Please provide at least 5 Campaign Don'ts before submitting!",
+        icon: "error",
+      });
+      return;
+    }
+
+
+
     const formData = new FormData()
     if (imgFile) {
       formData.append("image", imgFile)
@@ -148,32 +168,34 @@ const AddCampaign = () => {
 
     Object.entries(data).forEach(([key, value]) => {
       formData.append(key, value);
-    }); 
+    });
 
-if(getCampaignData?._id){  
-  
-  await updateCampaign(formData).then((res) => {  
+    if (getCampaignData?._id) {
 
-    if(res?.data?.success){
-      Swal.fire({
-        text: res?.data?.message,
-        icon: "success",
-        timer: 1500,
-        showConfirmButton: false
-      })
-    }else{
-      Swal.fire({
-        text: res?.data?.message,
-        icon: "error",
+      await updateCampaign(formData).then((res) => {
+
+        if (res?.data?.success) {
+          Swal.fire({
+            text: res?.data?.message,
+            icon: "success",
+            timer: 1500,
+            showConfirmButton: false
+          })
+        } else {
+          Swal.fire({
+            text: res?.data?.message,
+            icon: "error",
+          })
+        }
       })
     }
-  })
-} 
-else{  
-  await createCampaign(formData)
-}
+    else {
+      await createCampaign(formData).then((res) => {
+        console.log(res);
+      })
+    }
 
-  
+
 
   };
 
@@ -185,16 +207,6 @@ else{
           <div className="flex justify-between items-center mb-4">
             <h1 className="text-xl font-medium">Creating New Campaign</h1>
 
-            {
-              getCampaignData?._id && (
-                <button
-                  className="bg-[#9FE870] hover:bg-[#8ed462] border-none text-black h-[45px] px-4 rounded-md"
-                  onClick={() => router.push(`/add-questions?id=${getCampaignData?._id}`)}
-                >
-                  + Add Question
-                </button>
-              )
-            }
           </div>
 
           <div className="bg-white p-6 rounded-xl">
@@ -276,7 +288,7 @@ else{
 
                     {/* Number of Budget */}
                     <Form.Item
-                      label={<p className="text-[#666666] text-[14px]">Number of Budget</p>}
+                      label={<p className="text-[#666666] text-[14px]">Campaign Budget £</p>}
                       name="budget"
                       rules={[{ required: true, message: "Budget is required!" }]}
                     >
@@ -323,9 +335,9 @@ else{
                       <label htmlFor="image" style={{ display: "block", backgroundColor: "white" }} className="p-3 border rounded-lg">
                         <div
                         >
-                          <div className="flex justify-center items-center w-full h-full py-4">
+                          <div className="flex justify-center items-center w-full h-[270px] py-4">
                             {imgUrl ? (
-                              <img src={imgUrl} alt="Campaign Thumbnail" />
+                              <img src={imgUrl} alt="Campaign Thumbnail" className="w-full h-[260px] object-cover" />
                             ) : (
                               <PiImageThin className="text-7xl flex items-center justify-center text-[#666666] font-[400]" />
                             )}
@@ -373,6 +385,8 @@ else{
                         </button>
                       </div>
 
+
+
                       {/* Campaign Don'ts */}
                       <div>
                         <label className="block mb-2 text-[#666666]">Campaign Don&apos;ts</label>
@@ -405,7 +419,15 @@ else{
                           name="target_age"
                           rules={[{ required: true, message: "Target Age is required!" }]}
                         >
-                          <Input className="h-[45px]" style={{ backgroundColor: "#F5F5F5" }} />
+                          <Select
+                            placeholder="Select age"
+                            className="h-[45px]"
+                            style={{ backgroundColor: "#F5F5F5", height: "45px" }}
+                          >
+                            <Select.Option value="18-25">18 - 25</Select.Option>
+                            <Select.Option value="26-34">26 - 34</Select.Option>
+                            <Select.Option value="35+">35+</Select.Option>
+                          </Select>
                         </Form.Item>
 
                         <Form.Item
@@ -444,18 +466,40 @@ else{
                   </div>
                 </div>
 
-                <Form.Item className="flex justify-end gap-4">
+                <div className="flex justify-end items-center gap-x-4 mt-3">
+                  <Form.Item className="">
+                    <button
+                      type="submit"
+                      className="bg-black px-8 py-3 text-white rounded-lg   "
+                    >
+                      {isLoading ? "Loading..." : "Save "}
+                    </button>
+                  </Form.Item>
 
-                  <button
-                    type="submit"
-                    className="bg-black px-8 py-3 text-white rounded-lg mt-3 "
-                  >
-                    {isLoading ? "Loading..." : "Save Campaign"}
-                  </button>
-                </Form.Item>
+                </div>
+
               </Form>
             </ConfigProvider>
           </div>
+
+
+          <div className="flex justify-end items-center gap-x-4 mt-3 font-semibold">
+
+            {
+              getCampaignData?._id && (
+                <div
+                  className="bg-[#9FE870] hover:bg-[#8ed462] border-none text-black h-[45px] px-4 rounded-md flex items-center justify-center cursor-pointer"
+                  type="button"
+                  onClick={() => router.push(`/add-questions?id=${getCampaignData?._id}`)}
+                >
+                  + Applicant Questions
+                </div>
+              )
+            }
+          </div>
+
+
+
         </div>
       </div>
 

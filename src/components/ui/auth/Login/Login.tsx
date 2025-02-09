@@ -19,9 +19,8 @@ const Login = () => {
   useEffect(() => {
     if (isSuccess) {
       if (data) {
-        Swal.fire({
-          title: "Login Successful",
-          text: "Welcome to Dokter For You",
+        Swal.fire({    
+          text: data?.message,
           icon: "success",
           timer: 1500,
           showConfirmButton: false
@@ -29,11 +28,8 @@ const Login = () => {
  
           if (data) {
             SetLocalStorage("creatorToken", data?.data?.accessToken); 
-            router.push("/brand-home");
-          
+            router.push("/brand-home");         
           }
-        
- 
         });
       }
  

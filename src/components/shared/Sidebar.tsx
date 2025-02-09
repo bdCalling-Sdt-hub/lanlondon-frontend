@@ -46,6 +46,11 @@ const Sidebar = () => {
         label: <Link href="/applicants">Applicants</Link>,
       },
       {
+        key: '/approve-submissions',
+        icon: <FiBook size={24} />,
+        label: <Link href="/approve-submissions">Approve Submissions</Link>,
+      },
+      {
         key: '/calender',
         icon: <RxCalendar size={24} />,
         label: <Link href="/calender">Calender</Link>,

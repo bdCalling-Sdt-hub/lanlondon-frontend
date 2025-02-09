@@ -21,11 +21,11 @@ const EnhanceExperience = () => {
                     backgroundColor: "#ffe6f7"
                 }}
             > 
-            <div className='container pb-[100px]'>
+            <div className='container py-[70px]'>
 
                 <div className="flex lg:flex-row flex-col-reverse items-center  w-full">
                     {/* Left Column */}
-                    <div className="  w-full px-4 mb-40">
+                    <div className="  w-full px-4 ">
                     
                     <div className={`flex flex-col  text-[40px] font-bold `}>
                         <p className='text-[#5C5C5C]'>Enhance your experience </p> 
@@ -75,7 +75,7 @@ const EnhanceExperience = () => {
                             <img
                                 src="/phone.svg"
                                 alt="Tweet App Interface"
-                                className="object-contain w-full h-full"
+                                className="object-contain w-full h-full "
                             />
                         </div>
                     </div>

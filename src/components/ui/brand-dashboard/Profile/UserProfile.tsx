@@ -215,7 +215,7 @@ const UserProfile = () => {
                                 style={{ display: "block" }}
 
                             >
-                                Location
+                                Address
                             </p>}>
                                 <Input
                                     style={{
@@ -224,6 +224,16 @@ const UserProfile = () => {
                                         background: "white",
                                         borderRadius: "8px",
                                         outline: "none",
+                                    }}
+                                />
+                                <Input
+                                    style={{
+                                        border: "1px solid #E0E4EC",
+                                        height: "52px",
+                                        background: "white",
+                                        borderRadius: "8px",
+                                        outline: "none", 
+                                        marginTop: "10px",
                                     }}
                                 />
                             </Form.Item>

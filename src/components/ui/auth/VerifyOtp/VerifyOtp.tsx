@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react"
 
 import "./OtpStyle.css"
 import Swal from "sweetalert2";
-import { GetLocalStorage, SetLocalStorage } from "@/util/LocalStroage";
+import { GetLocalStorage } from "@/util/LocalStroage";
 import { useForgetPasswordMutation, useVerifyEmailMutation } from "@/redux/features/auth/authApi";
 const { Text } = Typography;
 
@@ -71,7 +71,7 @@ const VerifyOtp = () => {
           if (userType === "registerUser") {
             router.push("/login")
           } else { 
-            localStorage.setItem("resetToken", res?.data?.data);
+            
             router.push("/reset-password") 
 
           } 

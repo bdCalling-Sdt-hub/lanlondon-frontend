@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 import { imageUrl } from '@/redux/base/baseApi';
-import { useGetApplicantsQuery, useUpdateStatusMutation } from '@/redux/features/brand-dashboardApi/applicants';
-import { ConfigProvider, Input, message, Table } from 'antd'
+import { useGetApplicantsQuery } from '@/redux/features/brand-dashboardApi/applicants';
+import { ConfigProvider, Input, Table } from 'antd'
 import { Search } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
@@ -17,49 +17,12 @@ const Applicants = () => {
     const router = useRouter()
     const [page, setPage] = useState<number>(1);
     const itemsPerPage = 10;
-    const { data: applicants, refetch } = useGetApplicantsQuery({ page, search })
-    const [updateStatus] = useUpdateStatusMutation()
+    const { data: applicants } = useGetApplicantsQuery({ page, search })
+    
 console.log(applicants);
 
 
-    const handleDetails = (id: string) => {
-        router.push(`/applicants/${id}`)
-    }
 
-    const handleDecline = async (id: string) => {
-
-        const data = {
-            status: "Rejected",
-            id: id
-        }
-
-        await updateStatus(data).then((res) => {
-            if (res?.data?.success) {
-                message.success(res?.data?.message)
-                refetch()
-            } else {
-                message.error(res?.data?.message)
-            }
-        })
-    }
-
-
-    const handleAccept = async (id: string) => {
-
-        const data = {
-            status: "Approved",
-            id: id
-        }
-
-        await updateStatus(data).then((res) => {
-            if (res?.data?.success) {
-                message.success(res?.data?.message)
-                refetch()
-            } else {
-                message.error(res?.data?.message)
-            }
-        })
-    }
 
     const columns = [
         {
@@ -91,6 +54,13 @@ console.log(applicants);
 
         },
         {
+            title: "Status",
+            dataIndex: "influencer",
+            key: "influencer",
+            render: (_: any, record: any) => <p>{record?.status}</p>
+
+        },
+        {
             title: "View Social",
             dataIndex: "influencer",
             key: "influencer",
@@ -108,9 +78,8 @@ console.log(applicants);
             key: "actions",
             render: (_: any, record: any) =>
                 <div className=' flex items-center gap-x-3 '>
-                    <button className='text-white bg-black py-1 px-4 ' onClick={() => handleDetails(record?._id)} disabled={record?.status !== "Approved"} > Details</button>
-                    <button className='text-[#FF3131] bg-[#ffd6d6] py-1 px-4 rounded-md disabled:cursor-not-allowed disabled:bg-[#FF3131]/50  ' onClick={() => handleDecline(record?._id)}> Decline</button>
-                    <button className='text-black bg-[#c1ff72] py-1 px-4 rounded-md disabled:cursor-not-allowed disabled:bg-[#c1ff72]/50 ' onClick={() => handleAccept(record?._id)} disabled={record?.status === "Approved"}> Accept</button>
+                    <button className='text-white bg-black py-1 px-4 ' onClick={()=>router.push(`/applicants/${record?._id}`)} > View Application</button>
+                    {/* onClick={() => handleDetails(record?._id)} disabled={record?.status !== "Approved"}  */}
                 </div>
 
         },

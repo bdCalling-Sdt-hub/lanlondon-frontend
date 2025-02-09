@@ -11,21 +11,21 @@ const [makeContact] = useMakeContactMutation();
 const [form] = Form.useForm();
 
     const contactDetails = [
-        {
-          title: "Corporate Office",
-          description: "Goethestrasse 14, 8000 Graz Mur, Austria",
+        // {
+        //   title: "Corporate Office",
+        //   description: "Goethestrasse 14, 8000 Graz Mur, Austria",
         
-          icon: <Building2 className="w-7 h-7 text-pink-500" />,
-        },
-        {
-          title: "Customer Support",
-          description: ["+41 949 214802", "+41 773 34593"],
+        //   icon: <Building2 className="w-7 h-7 text-pink-500" />,
+        // },
+        // {
+        //   title: "Customer Support",
+        //   description: ["+41 949 214802", "+41 773 34593"],
          
-          icon: <Phone className="w-7 h-7 text-pink-500" />,
-        },
+        //   icon: <Phone className="w-7 h-7 text-pink-500" />,
+        // },
         {
           title: "Email",
-          description: "testdomain@gmail.com",
+          description: "Hello@creatorbriefs.com",
          
           icon: <Mail className="w-7 h-7 text-pink-500" />,
         },
@@ -80,7 +80,7 @@ const [form] = Form.useForm();
          
             <div className=" ">
       <div className="container mx-auto pb-[146px]">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-[100px] mb-[100px]">
+        <div className="flex items-center justify-center pt-[100px] mb-[100px]">
         {contactDetails.map((detail, index) => (
       <ContactCard key={index} {...detail} />
     ))} 
