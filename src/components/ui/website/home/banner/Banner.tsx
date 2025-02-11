@@ -20,11 +20,11 @@ const Banner = () => {
     <div className=" container  flex items-center justify-between w-full "> 
       <div className="w-full">
         <div className="flex items-center gap-2">
-          <img src="/heart.png" alt="" className="animate-bounce" />
-          <p className={`text-2xl font-[600]  ${urbanist.className}` }>Hi We’re Creator Brief</p>
+          <img src="/heart.png" alt="" className="animate-bounce lg:h-[58px] lg:w-[58px] h-[40px] w-[40px]" />
+          <p className={`lg:text-2xl text-xl font-[600]  ${urbanist.className}` }>Hi We’re Creator Brief</p>
         </div>
         <h1
-      className={`text-[84px] font-[700] w-[90%] leading-snug`}
+      className={`lg:text-[84px] text-[44px] font-[700] lg:w-[90%] w-full leading-snug`}
       style={{ fontFamily: "Urbanist, sans-serif" }}
     >
       Authentic Job Bulletin for{" "}
@@ -45,33 +45,33 @@ const Banner = () => {
             list?.map((item , index) =>  (
               <div key={index} className="flex items-center gap-2">
                 <p><GoDotFill size={10} /> </p>
-                <p className={`text-lg font-[500]  ${urbanist.className}`}>{item}</p>
+                <p className={`lg:text-lg text-[14px] font-[500]  ${urbanist.className}`}>{item}</p>
               </div>
             ))
           }
         </div>
-        <div className="flex mt-7 mb-12 items-center gap-5">
+        <div className="flex mt-7 mb-12 items-center lg:gap-5 gap-3">
           <div className="flex -space-x-5">
             <img
-              className="w-14 h-14 border-2 border-black  object-cover rounded-full"
+              className="lg:w-14 lg:h-14 w-12 h-12 border-2 border-black  object-cover rounded-full"
               src="/img1.webp"
               alt=""
             />
             <img
-              className="w-14 h-14 border-2 border-black object-cover rounded-full"
+              className="lg:w-14 lg:h-14 w-12 h-12 border-2 border-black object-cover rounded-full"
               src="/img2.jpg"
               alt=""
             />
             <img
-              className="w-14 h-14 border-2 border-black object-cover rounded-full"
+              className="lg:w-14 lg:h-14 w-12 h-12 border-2 border-black object-cover rounded-full"
               src="/img3.jpg"
               alt=""
             />
-            <p className="bg-white rounded-full border-2 border-black w-14 h-14 flex items-center justify-center">
-              <span className="font-bold">86K+</span>
+            <p className="bg-white rounded-full border-2 border-black lg:w-14 lg:h-14 w-12 h-12 flex items-center justify-center">
+              <span className="font-bold lg:text-lg text-[10px]">86K+</span>
             </p>
           </div>
-          <p className={`text-2xl font-[400]  ${urbanist.className}`}>Influencers on Our Platform</p>
+          <p className={`lg:text-2xl text-xl font-[400]  ${urbanist.className}`}>Influencers on Our Platform</p>
         </div>
         <div>
           <button className={`${urbanist.className} py-4  border border-black px-6 rounded-xl font-[600]  text-xl flex items-center gap-3 bg-primary `} >
@@ -81,16 +81,16 @@ const Banner = () => {
         
       </div>
       <div className="flex flex-col gap-5">
-        <div className="p-2 border border-black hover:text-white hover:bg-black rounded-full w-12 flex items-center justify-center h-12">
+        <div className="p-2 border border-black hover:text-white hover:bg-black rounded-full lg:w-12 w-10  flex items-center justify-center lg:h-12 h-10 ">
           <FaFacebookF size={27} />
         </div>
-        <div className="p-1 border border-black hover:text-white hover:bg-black rounded-full w-12 flex items-center justify-center h-12">
+        <div className="p-1 border border-black hover:text-white hover:bg-black rounded-full lg:w-12 w-10  flex items-center justify-center lg:h-12 h-10 ">
           <FaTwitter size={26} />
         </div>
-        <div className="p-1 border border-black hover:text-white hover:bg-black rounded-full w-12 flex items-center justify-center h-12">
+        <div className="p-1 border border-black hover:text-white hover:bg-black rounded-full lg:w-12 w-10  flex items-center justify-center lg:h-12 h-10 ">
           <TiSocialLinkedin size={30} />
         </div>
-        <div className="p-1 border border-black hover:text-white hover:bg-black rounded-full w-12 flex items-center justify-center h-12">
+        <div className="p-1 border border-black hover:text-white hover:bg-black rounded-full lg:w-12 w-10  flex items-center justify-center lg:h-12 h-10 ">
           <FaInstagram size={27} />
         </div>
       </div>

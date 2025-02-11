@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 //@ts-nocheck
 "use client"
-import { Form, Input, DatePicker, ConfigProvider, Select } from "antd"
+import { Form, Input, ConfigProvider, Select } from "antd"
 import { PiImageThin } from 'react-icons/pi';
 import { useEffect, useState } from "react";
 import moment from "moment";
@@ -156,15 +156,19 @@ const AddCampaign = () => {
 
     hashtagArray.forEach((item) => {
       formData.append("hashtag[]", item);
-    });
+    }); 
+
+const {target_age ,startDate , endDate , submission_date, ...otherValues  } = values
 
     const data = {
-      ...values,
-      target_age: values.target_age && parseInt(values.target_age),
-      startDate: values.startDate ? moment(values.startDate).format("YYYY-MM-d") : undefined,
-      endDate: values.endDate ? moment(values.endDate).format("YYYY-MM-d") : undefined,
-      submission_date: values.submission_date ? moment(values.submission_date).format("YYYY-MM-d") : undefined,
-    };
+      ...otherValues,
+      target_age: target_age && parseInt(target_age), 
+      startDate: startDate,
+      endDate: endDate,
+      submission_date: submission_date,
+    }; 
+
+    console.log("dfdas" ,data);
 
     Object.entries(data).forEach(([key, value]) => {
       formData.append(key, value);
@@ -190,9 +194,7 @@ const AddCampaign = () => {
       })
     }
     else {
-      await createCampaign(formData).then((res) => {
-        console.log(res);
-      })
+      await createCampaign(formData)
     }
 
 
@@ -264,8 +266,13 @@ const AddCampaign = () => {
                       label={<p className="text-[#666666] text-[14px]">Campaign Start Date</p>}
                       name="startDate"
                       rules={[{ required: true, message: "Start Date is required!" }]}
-                    >
-                      <DatePicker className="w-full h-[45px]" format="YYYY-MM-DD" />
+                    > 
+
+<Input type="date" className="h-[45px]" style={{ backgroundColor: "#F5F5F5" }} /> 
+                     {/* <DatePicker className=" w-full h-[45px]"  format={{
+        format: 'YYYY-MM-d',
+        type: 'mask',
+      }} /> */}
                     </Form.Item>
 
                     {/* Campaign End Date */}
@@ -274,7 +281,7 @@ const AddCampaign = () => {
                       name="endDate"
                       rules={[{ required: true, message: "End Date is required!" }]}
                     >
-                      <DatePicker className="w-full h-[45px]" format="YYYY-MM-DD" />
+          <Input type="date" className="h-[45px]" style={{ backgroundColor: "#F5F5F5" }} /> 
                     </Form.Item>
 
                     {/* Preferred Platform */}
@@ -323,7 +330,7 @@ const AddCampaign = () => {
                       name="submission_date"
                       rules={[{ required: true, message: "Submission Date is required!" }]}
                     >
-                      <DatePicker className="w-full h-[45px]" format="YYYY-MM-DD" />
+                     <Input type="date" className="h-[45px]" style={{ backgroundColor: "#F5F5F5" }} /> 
                     </Form.Item>
                   </div>
 

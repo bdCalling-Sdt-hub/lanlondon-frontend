@@ -46,11 +46,11 @@ const FAQ = () => {
         <div className=' container  bg-pink-100/70 shadow-2xl rounded-xl px-8  py-5 ' >
 
           <div className=' pb-[40px]'>
-            <p className="mb-4 inline-block uppercase text-[24px] font-medium text-gray-600">
+            <p className="lg:mb-4 mb-2 inline-block uppercase lg:text-[24px] text-[18px] font-medium text-gray-600">
               — FAQ
             </p>
 
-            <h2 className={` text-[40px] font-[500] leading-tight text-gray-900 ${urbanist.className}`}>
+            <h2 className={` lg:text-[40px] text-[30px] font-[500] leading-tight text-gray-900 ${urbanist.className}`}>
               Got Questions? We Have Answers!
             </h2>
 

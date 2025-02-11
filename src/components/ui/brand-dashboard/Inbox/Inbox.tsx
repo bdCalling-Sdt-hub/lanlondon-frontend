@@ -113,18 +113,18 @@ const ChatClient = () => {
     };
   }, [socket, handleChatListRefresh]);
 
-  const handlePdfFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const fileType = file.type;
-      if (fileType === "application/pdf") {
-        setPdf(file);
-        setPdfURL(URL.createObjectURL(file));
-        // setImage(null);
-        // setImageURL(null);
-      }
-    }
-  };
+  // const handlePdfFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = e.target.files?.[0];
+  //   if (file) {
+  //     const fileType = file.type;
+  //     if (fileType === "application/pdf") {
+  //       setPdf(file);
+  //       setPdfURL(URL.createObjectURL(file));
+  //       // setImage(null);
+  //       // setImageURL(null);
+  //     }
+  //   }
+  // };
 
   const handleSubmit = async () => {
     const chatId = person?._id;
@@ -271,7 +271,8 @@ const ChatClient = () => {
                           <img
                             style={{ width: "100%", height: 140, borderRadius: 8 }}
                             src={value.image?.startsWith("http") ? value?.image : `${imageUrl}${value?.image}`}
-                            alt=""
+                            alt="" 
+                            className="object-contain object-center"
                           />
                           <p className="text-[#8B8B8B] text-[12px] text-right mt-2">
                             {moment(value?.createdAt).format("hh:mm A")}
@@ -394,7 +395,7 @@ const ChatClient = () => {
                         <CiImageOn color="#607888" size={24} className="cursor-pointer" />
                       </label>
 
-                      <input
+                      {/* <input
                         type="file"
                         id="pdfFile"
                         className="hidden"
@@ -404,7 +405,7 @@ const ChatClient = () => {
                       />
                       <label htmlFor="pdfFile">
                         <HiMiniLink color="#607888" size={24} className="cursor-pointer" />
-                      </label>
+                      </label> */}
 
 
 

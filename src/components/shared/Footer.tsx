@@ -10,9 +10,9 @@ import {
 const Footer = () => { 
   const router = useRouter();
     return (
-        <div className="bg-black h-[400px]">
-        <div className="flex items-center justify-center pt-20 gap-10 text-white container mx-auto">
-          <div className="w-[35%] space-y-5">
+        <div className="bg-black lg:h-[400px] lg:pb-0 pb-5">
+        <div className="flex lg:flex-row flex-col items-center justify-center pt-20 gap-10 text-white container mx-auto">
+          <div className="lg:w-[35%] w-full space-y-5">
             <h1 className="text-3xl font-bold">Creator Brief</h1>
             <p className="w-[90%] text-gray-300">
               Authentic Job Bulletins for Influencer. Friendly for brands to
@@ -20,7 +20,7 @@ const Footer = () => {
             </p>
           
           </div>
-          <div className="w-[15%]">
+          <div className="lg:w-[15%] w-full">
             <h1 className="text-xl font-semibold my-5">Pages</h1>
             <div className="space-y-2">
               <p className="cursor-pointer "  onClick={() =>router.push("/")}>Home</p>
@@ -28,7 +28,7 @@ const Footer = () => {
            
             </div>
           </div>
-          <div className="w-[15%]">
+          <div className="lg:w-[15%] w-full">
             <h1 className="text-xl font-semibold my-5">Support</h1>
             <ul className="space-y-2 ">
               <p className="cursor-pointer " onClick={() =>router.push("/contact")}>Contact Us</p>
@@ -36,7 +36,7 @@ const Footer = () => {
            
             </ul>
           </div>
-          <div className="w-[35%]">
+          <div className="lg:w-[35%] w-full">
           <h1 className="text-xl font-semibold pb-3">Social Media</h1>
             <div className="flex gap-5">
               <div className="flex gap-5 text-black">

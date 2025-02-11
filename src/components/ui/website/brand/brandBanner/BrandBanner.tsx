@@ -9,24 +9,24 @@ const BrandBanner = () => {
     return (
         <div className={ `${urbanist.className}`}>
             <section className={`relative brandBannerBg  py-24`}>
-            <div className="absolute inset-0 bg-gray-300 opacity-20 z-0"></div>
+            {/* <div className="absolute inset-0 bg-gray-300 opacity-20 z-0"></div>  */}
 
       
       <div className="container relative mx-auto px-4">
-        <div className="flex flex-row-reverse  items-center justify-between">
+        <div className="flex lg:flex-row-reverse flex-col  items-center justify-between ">
           {/* Left Content */}
-          <div className="space-y-2 "> 
+          <div className="space-y-2 lg:mb-0 mb-5 "> 
 
             <div className=' flex items-start justify-between'> 
 
-            <h2 className="space-y-2 ms-5">
-              <span className="block text-2xl font-medium text-purple-600">Value that</span>
-              <span className="block text-4xl font-semibold">Sets us Apart</span>
+            <h2 className="lg:space-y-2 space-y-1 ms-5">
+              <span className="block lg:text-2xl text-lg font-medium text-purple-600">Value that</span>
+              <span className="block lg:text-4xl text-2xl font-semibold">Sets us Apart</span>
             </h2> 
  
  <div className=' flex items-center gap-3'> 
- <img src="/star.png" alt="" className='w-[60px] h-[60px]' /> 
- <img src="/star.png" alt="" className='w-[60px] h-[60px] mt-2' /> 
+ <img src="/star.png" alt="" className='lg:w-[60px] lg:h-[60px] w-[50px] h-[50px]' /> 
+ <img src="/star.png" alt="" className='lg:w-[60px] lg:h-[60px] w-[50px] h-[50px] mt-2' /> 
  </div>
             
             </div>
@@ -58,16 +58,16 @@ const BrandBanner = () => {
                     <div className="rounded-full  p-1">
                       <Check className="h-5 w-5 text-black" />
                     </div> 
-                       <div className=' text-[26px] font-[600]'>   {item.title}  </div>
+                       <div className=' lg:text-[26px] text-[22px] font-[600]'>   {item.title}  </div>
                          
                          </div>
-                    <p className="text-[20px] text-[#2A2A2A] font-medium ms-6">{item.description}</p>
+                    <p className="lg:text-[20px] text-[16px] text-[#2A2A2A] font-medium ms-6">{item.description}</p>
                   </div>
                 </div>
               ))}
             </div>  
-            <div className=' ms-3 mt-3'> 
-            <img src="/footerIcon.png" alt="" className='w-auto h-[50px]' />
+            <div className=' ms-3 mt-3 '> 
+            <img src="/footerIcon.png" alt="" className='w-auto lg:h-[50px] h-[40px]' />
             </div>
           </div>
 

@@ -27,12 +27,12 @@ const EnhanceExperience = () => {
                     {/* Left Column */}
                     <div className="  w-full px-4 ">
                     
-                    <div className={`flex flex-col  text-[40px] font-bold `}>
+                    <div className={`flex flex-col  lg:text-[40px] text-[28px] font-bold `}>
                         <p className='text-[#5C5C5C]'>Enhance your experience </p> 
                         <p className='text-[#7A00F1] text-[35px]'> Download the Creator Brief app today! </p>
                     </div>
 
-                        <p className="text-sm md:text-base text-[#5C5C5C] tracking-tight w-full lg:py-6 pb-10">
+                        <p className="text-base text-[#5C5C5C] tracking-tight w-full lg:py-6 pb-10">
                         Discover a whole new level of convenience with our mobile app. From browsing our delectable menu to securing exclusive deals, it&apos;s your gateway to a world of culinary delights. Download now and elevate your dining experience with just a tap.
                         </p>
 

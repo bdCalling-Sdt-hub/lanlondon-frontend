@@ -19,10 +19,6 @@ const Applicants = () => {
     const itemsPerPage = 10;
     const { data: applicants } = useGetApplicantsQuery({ page, search })
     
-console.log(applicants);
-
-
-
 
     const columns = [
         {

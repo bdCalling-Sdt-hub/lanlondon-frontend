@@ -25,16 +25,34 @@ const JoinAs = () => {
 
 <div className="my-[55px] container">
       <Swiper
-        loop={true} 
-        centeredSlides={true}
-        autoplay={{
-          delay: 1000,
-          disableOnInteraction: false,
-        }}
-        slidesPerView={5} 
-        spaceBetween={20}  
-        modules={[Autoplay]}
-        className="flex items-center"
+           modules={[Autoplay]}
+           spaceBetween={30}
+           pagination={{
+               clickable: true,
+           }}
+           autoplay={{
+               delay: 3000,
+               disableOnInteraction: false,
+           }}
+           className="mySwiper flex items-center"
+           breakpoints={{
+               400: {
+                   slidesPerView: 2,
+               },
+               640: {
+                   slidesPerView: 3,
+               },
+               768: {
+                   slidesPerView: 4,
+               },
+               1024: {
+                   slidesPerView: 5,
+               },
+               1250: {
+                   slidesPerView: 6,
+               },
+           }}
+       
       >
         {logos.map((logo, index) => (
           <SwiperSlide key={index}>
@@ -54,18 +72,18 @@ const JoinAs = () => {
             <div>
             <div className="relative  w-full bannerBg2  ">
 
-      <div className="container relative mx-auto flex items-center justify-between px-4 py-[110px]">
+      <div className="container relative mx-auto flex  lg:flex-row flex-col items-center justify-between px-4 py-[110px]">
         {/* Left Content */}
-        <div className="w-full max-w-2xl pr-8">
-          <span className="mb-4 inline-block text-[24px] font-[600] text-gray-800">
+        <div className="w-full lg:max-w-2xl pr-8">
+          <span className="lg:mb-4 mb-2 inline-block lg:text-[24px] text-[18px] font-[600] text-gray-800">
             — Be the Part of the Community
           </span>
           
-          <h2 className={`mb-6 text-[48px] font-[500] leading-tight text-gray-900 ${urbanist.className}` }>
+          <h2 className={`lg:mb-6 mb-3 lg:text-[48px] text-[32px] font-[500] leading-tight text-gray-900 ${urbanist.className}` }>
             Join as Influencer & Earn
           </h2>
           
-          <p className={`mb-8 text-lg leading-relaxed text-gray-800 font-[500] ${poppins.className}`}>
+          <p className={`lg:mb-8 mb-6 lg:text-lg text-[15px] leading-relaxed text-gray-800 font-[500] ${poppins.className}`}>
             At Creator Brief, we help bands create impactful campaigns and track their success with a powerful dashboard. Customize your promotions, monitor real-time analytics, and understand your audience like never before. From tracking engagement to optimizing your reach, our platform gives you the insights to grow your fanbase and amplify your music&apos;s impact.
           </p>
 
@@ -101,7 +119,7 @@ const JoinAs = () => {
         </div>
 
         {/* Right Image Group */}
-        <div className="  h-[400px] w-[400px]">
+        <div className="  lg:h-[400px] lg:w-[400px]">
      <Image src="/group.svg" alt="Image" width={600} height={422} />
         </div>
       </div>

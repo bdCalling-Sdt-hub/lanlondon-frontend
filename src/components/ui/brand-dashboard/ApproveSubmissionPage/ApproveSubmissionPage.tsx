@@ -1,21 +1,109 @@
 "use client"
-import { useGetApprovedSubmissionQuery } from '@/redux/features/brand-dashboardApi/approveSubmission';
-import React, { useState } from 'react';
+// import { useGetApprovedSubmissionQuery } from '@/redux/features/brand-dashboardApi/approveSubmission'; 
+import React from 'react';
 import { Instagram, Facebook } from 'lucide-react';
 import { imageUrl } from '@/redux/base/baseApi';
-import { AiFillHeart, AiOutlineMessage } from 'react-icons/ai';
+import { AiFillHeart, AiOutlineHeart, AiOutlineMessage } from 'react-icons/ai';
+import { useGetApplicantsQuery, useUpdateStatusMutation } from '@/redux/features/brand-dashboardApi/applicants';
+import { message } from 'antd';
+import { useCreateFavoriteMutation } from '@/redux/features/brand-dashboardApi/favorite';
+import { useCreateInitialChatMutation } from '@/redux/features/brand-dashboardApi/inbox';
+import { useRouter } from 'next/navigation';
 
 interface InfluencerCardProps {
   name: string;
   username: string;
   imageUrl: string;
   instagramFollowers: string;
-  facebookFollowers: string; 
-  profile : string
+  facebookFollowers: string;
+  profile: string
+  id: string
+  status: string 
+  isFavorite: boolean
+  refetch: () => void 
+  influencerId: string
 }
 
-const InfluencerCard = ({ name, username, imageUrl, instagramFollowers, facebookFollowers , profile }: InfluencerCardProps) => {
-  const [isLiked, setIsLiked] = useState(false);
+const InfluencerCard = ({ name, username, imageUrl, instagramFollowers, facebookFollowers, profile, id, status, refetch ,isFavorite , influencerId  }: InfluencerCardProps) => {
+  const [updateStatus] = useUpdateStatusMutation()
+  const [createFavorite] = useCreateFavoriteMutation()
+  const [createInitialChat] = useCreateInitialChatMutation()
+  const router = useRouter()
+
+  const handleDecline = async () => {
+
+    const data = {
+      status: "Rejected",
+      id: id
+    }
+
+    if (status === "Rejected") {
+      message.info("You have already marked this influencer for re-submission.")
+    } else {
+      await updateStatus(data).then((res) => {
+        if (res?.data?.success) {
+          message.success(res?.data?.message)
+          refetch()
+        } else {
+          message.error(res?.data?.message)
+        }
+      })
+    }
+  }
+
+
+  const handleAccept = async () => {
+
+    const data = {
+      status: "Approved",
+      id: id
+    }
+
+    if (status === "Approved") {
+      message.info("You have already Approved this influencer.");
+    } else {
+      await updateStatus(data).then((res) => {
+        if (res?.data?.success) {
+          message.success(res?.data?.message)
+          refetch()
+        } else {
+          message.error(res?.data?.message)
+        }
+      })
+    }
+
+  }
+
+  const handleFavorite = async (id: string) => {
+
+    const data = {
+      influencer: id
+    }
+    await createFavorite(data).then((res) => {
+      if (res?.data?.success) {
+        message.success(res?.data?.message)
+        refetch()
+      } else {
+        message.error(res?.data?.message)
+      }
+    })
+  }
+
+  const handleMessage = async () => {
+
+    const data = {
+      influencer: influencerId
+    }
+    await createInitialChat(data).then((res) => {
+
+      if (res?.data?.success) {
+        router.push("/inbox")
+      }
+    })
+  }
+
+
+
 
   return (
     <div className="bg-white rounded-xl shadow-sm border border-black overflow-hidden">
@@ -54,22 +142,25 @@ const InfluencerCard = ({ name, username, imageUrl, instagramFollowers, facebook
       </div>
 
       {/* Action Buttons */}
-      <div className="p-3 flex items-center justify-between "> 
+      <div className="p-3 flex items-center justify-between ">
 
-        <div className='flex items-center gap-2'> 
-        <button className='text-[#FF3131] bg-[#ffd6d6] py-1 px-4 rounded-md disabled:cursor-not-allowed disabled:bg-[#FF3131]/50  ' > Re-submit</button>
-        <button className={`text-black bg-[#c1ff72] py-1 px-4 rounded-md disabled:cursor-not-allowed disabled:bg-[#c1ff72]/50 `} > Approve</button>
-     
+        <div className='flex items-center gap-2'>
+          <button className='text-[#FF3131] bg-[#ffd6d6] py-1 px-4 rounded-md disabled:cursor-not-allowed disabled:bg-[#FF3131]/50  ' onClick={() => handleDecline()}  > Re-submit</button>
+          <button className={`text-black bg-[#c1ff72] py-1 px-4 rounded-md disabled:cursor-not-allowed disabled:bg-[#c1ff72]/50 `} onClick={() => handleAccept()} > Approve</button>
+
         </div>
         <div className="flex items-center gap-2">
           <button
-            onClick={() => setIsLiked(!isLiked)}
-            className={`p-1.5 rounded-full transition-colors ${isLiked ? 'text-pink-500' : 'text-gray-600 hover:text-gray-800'
-              }`}
-          >
-            <AiFillHeart size={25} color='red' />
+            // onClick={() => setIsLiked(!isLiked)} 
+            className={`p-1.5 rounded-full transition-colors `}
+            onClick={() => handleFavorite(influencerId)}
+          > 
+          {
+            isFavorite ? <AiFillHeart size={25} color='red' /> : <AiOutlineHeart size={25} color='red' />
+          }
+            
           </button>
-          <button className="p-1.5 text-gray-600 hover:text-gray-800 rounded-full">
+          <button className="p-1.5 text-gray-600 hover:text-gray-800 rounded-full" onClick={handleMessage} >
             <AiOutlineMessage size={24} />
           </button>
         </div>
@@ -82,17 +173,24 @@ const InfluencerCard = ({ name, username, imageUrl, instagramFollowers, facebook
 
 const ApproveSubmissionPage = () => {
 
-  const { data } = useGetApprovedSubmissionQuery(undefined)
-  console.log(data);
+  // const { data } = useGetApprovedSubmissionQuery(undefined) 
 
-  const influencers = data?.applications?.map((influencer: {
+
+  const { data: applicants, refetch } = useGetApplicantsQuery({})
+  console.log("applicants", applicants);
+
+
+  const influencers = applicants?.map((influencer: {
     _id: string,
+    status: string,
+    isFavorite: boolean ,
     influencer: {
       name: string,
       profile: string,
       instagramFollowers: string,
-      facebookFollowers: string
-    } 
+      facebookFollowers: string , 
+      _id: string
+    }
     socialsAnalytics: string[]
   }) => ({
     id: influencer?._id,
@@ -107,7 +205,14 @@ const ApproveSubmissionPage = () => {
       : `${imageUrl}${influencer?.socialsAnalytics[0]}`,
     instagramFollowers: influencer?.influencer?.instagramFollowers,
     facebookFollowers: influencer?.influencer?.facebookFollowers,
+    status: influencer?.status,
+    isFavorite: influencer?.isFavorite     ,
+    influencerId : influencer?.influencer?._id
   }));
+
+
+
+
 
   return (
     <div className="">
@@ -123,12 +228,16 @@ const ApproveSubmissionPage = () => {
             username: string,
             imageUrl: string,
             instagramFollowers: string,
-            facebookFollowers: string , 
-            profile: string
+            facebookFollowers: string,
+            profile: string,
+            status: string , 
+            isFavorite: boolean , 
+            influencerId: string
           }, index: number) => (
             <InfluencerCard
               key={influencer.id || index}
               {...influencer}
+              refetch={refetch}
             />
           ))}
         </div>

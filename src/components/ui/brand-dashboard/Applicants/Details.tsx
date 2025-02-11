@@ -192,7 +192,7 @@ export default function Details() {
 
             <div className="flex justify-end gap-2 mt-2">
               <button className='text-[#FF3131] bg-[#ffd6d6] py-1 px-4 rounded-md disabled:cursor-not-allowed disabled:bg-[#FF3131]/50  '  onClick={() => handleDecline()}  > Decline</button>
-              <button className={`text-black bg-[#c1ff72] py-1 px-4 rounded-md disabled:cursor-not-allowed disabled:bg-[#c1ff72]/50  ${!checked && "cursor-not-allowed bg-[#c1ff72]/50 "}`}  onClick={() => handleAccept()} > Accept</button>
+              <button className={`text-black bg-[#c1ff72] py-1 px-4 rounded-md disabled:cursor-not-allowed disabled:text-black/30 disabled:bg-[#c1ff72]/50  ${!checked && "cursor-not-allowed bg-[#c1ff72]/50 "}`} disabled={!checked} onClick={() => handleAccept()} > Accept</button>
             </div>
 
 
