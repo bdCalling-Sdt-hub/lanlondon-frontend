@@ -28,7 +28,7 @@ const data={
   ...values
 }
 
-console.log(data);
+// console.log(data);
 
     await createUser(data).then((res) => {
     
@@ -69,15 +69,15 @@ console.log(data);
 
     <div>
       <div className=" mb-6">
-        <h1 className="text-[48px] font-semibold mb-2 ">Join Us Now</h1>
-        <p className="text-[#262626] text-[32px] w-[450px]"> Create your campaign and boost your growth Faster</p>
+        <h1 className="lg:text-[48px] text-[28px] font-semibold mb-2 lg:block hidden ">Join Us Now</h1>
+        <p className="text-[#262626] lg:text-[32px] text-[24px] lg:w-[450px] lg:block hidden"> Create your campaign and boost your growth Faster</p>
 
-        <img src="/auth.png" alt="" className="h-[500px] w-[500px]" />
+        <img src="/auth.png" alt="" className="lg;h-[500px] lg:w-[500px] lg:block hidden " />
       </div>
     </div>
 
     <div>
-      <div className=" bg-white  rounded-lg w-[600px]  shadow-2xl p-[30px] pt-[55px] ">
+      <div className=" bg-white  rounded-lg lg:w-[600px]  shadow-2xl p-[30px] pt-[55px] ">
         <p className="text-[32px] font-semibold pb-4">Sign Up</p>
         <Form onFinish={onFinish} layout="vertical"> 
 

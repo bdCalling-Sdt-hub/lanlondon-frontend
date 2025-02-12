@@ -23,7 +23,7 @@ export default function Details() {
   const [checked, setChecked] = useState(false)
   const [updateStatus] = useUpdateStatusMutation()
 
-  console.log(details);
+  // console.log(details);
 
   const handleDecline = async () => {
 

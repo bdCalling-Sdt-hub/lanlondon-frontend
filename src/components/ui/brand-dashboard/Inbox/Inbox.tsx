@@ -60,7 +60,7 @@ const ChatClient = () => {
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const [form] = Form.useForm();
 
-  console.log(messageList);
+  // console.log(messageList);
 
   const menuItems = [
 
@@ -128,7 +128,7 @@ const ChatClient = () => {
 
   const handleSubmit = async () => {
     const chatId = person?._id;
-    console.log(pdf);
+    // console.log(pdf);
     const formData = new FormData();
     formData.append("text", messageInput);
     if (image) {

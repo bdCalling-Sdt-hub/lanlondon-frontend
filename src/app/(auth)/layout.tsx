@@ -4,7 +4,7 @@ const poppins = Poppins({ weight: ['400', '500', '600', '700'], subsets: ['latin
 
 const layout = ({children}: {children: React.ReactNode}) => {
     return (
-        <div className={`flex items-center justify-center lg:h-[100vh] h-auto bg-[#f9bdf5] ${poppins.className}`} > 
+        <div className={`flex items-center justify-center h-[100vh]  bg-[#f9bdf5] ${poppins.className}`} > 
            {children}
         
     </div>

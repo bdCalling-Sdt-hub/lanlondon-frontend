@@ -37,13 +37,11 @@ const ResetPassword = () => {
 
 
   const onFinish = async(values:{ newPassword: string , confirmPassword: string}) => {   
-    console.log(values);
-    await resetPasswords(values).then((res)=>{
-      console.log(res);
-    })
+
+    await resetPasswords(values)
   }  
     return (
-        <div className="bg-white rounded-lg shadow-2xl p-[30px] pt-[55px] w-[600px]">
+        <div className="bg-white rounded-lg shadow-2xl p-[30px] pt-[55px] lg:w-[600px]">
 
         <div className=" mb-6">
           <h1 className="text-[25px] font-semibold text-black text-center mb-4">Verification Process</h1> 

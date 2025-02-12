@@ -84,7 +84,7 @@ export default function Wallet() {
     },
   ];
 
-  console.log(allBudget);
+  // console.log(allBudget);
   return (
     <div className="p-6  mx-auto relative">
       <div className="   pb-4">

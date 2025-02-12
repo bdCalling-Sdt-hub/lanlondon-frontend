@@ -4,7 +4,7 @@ import { Form, Input, Modal } from 'antd';
 import React, { useEffect } from 'react';
 import Swal from 'sweetalert2';
 
-const AddTaskModal = ({ isModalOpen, setIsModalOpen , refetch }:{ isModalOpen: boolean, setIsModalOpen: (value: boolean) => void , refetch: any }) => { 
+const AddTaskModal = ({ isModalOpen, setIsModalOpen , refetch }:{ isModalOpen: boolean, setIsModalOpen: (value: boolean) => void , refetch: () => void }) => { 
     const [form] = Form.useForm()  
     const [makeTodo , { isError , isSuccess , data , error }] = useMakeTodoMutation() 
  
@@ -33,11 +33,9 @@ const AddTaskModal = ({ isModalOpen, setIsModalOpen , refetch }:{ isModalOpen: b
    }, [isSuccess, isError, error, data, form, setIsModalOpen , refetch ]); 
    
     const handleAddTask = async(values:{subject:string , details:string}) => { 
-      console.log(values); 
+      // console.log(values); 
 
-      await makeTodo(values).then((res) => {
-        console.log(res); 
-      })
+      await makeTodo(values)
        
       }; 
 

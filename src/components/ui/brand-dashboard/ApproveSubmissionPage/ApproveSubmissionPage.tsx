@@ -177,7 +177,7 @@ const ApproveSubmissionPage = () => {
 
 
   const { data: applicants, refetch } = useGetApplicantsQuery({})
-  console.log("applicants", applicants);
+  // console.log("applicants", applicants);
 
 
   const influencers = applicants?.map((influencer: {

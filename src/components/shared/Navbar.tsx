@@ -2,23 +2,28 @@
 import { useState, useRef } from "react";
 import { HiOutlineMenuAlt3, HiX } from "react-icons/hi";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import CmnButton from "./CmnButton";
 import { useBrandProfileQuery } from "@/redux/features/auth/authApi";
+import { imageUrl } from "@/redux/base/baseApi";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef(null);
   const pathname = usePathname();
-  const { data: profile } = useBrandProfileQuery(undefined)
-  console.log(profile);
+  const { data: profile } = useBrandProfileQuery(undefined) 
+  const router = useRouter();
+  console.log(profile); 
 
   const navOptions = [
     { label: "Home", path: "/" },
     { label: "I'm a Brand", path: "/brand" },
     { label: "I'm a Creator", path: "/creator" },
     { label: "Contact Us", path: "/contact" },
-  ];
+  ]; 
+
+  const image  = profile?.data?.profile?.startsWith("https") ? profile?.data?.profile : `${imageUrl}${profile?.data?.profile }` 
+  const userName  = profile?.data?.name
 
 
   return (
@@ -70,10 +75,17 @@ const Navbar = () => {
         </div>
 
         {/* Right Icons */}
-        <div className="nav-icons flex gap-4">
-          <Link href="/login">
+        <div className="nav-icons flex gap-4"> 
+          {  
+
+profile?.data ? <div className="flex items-center gap-2" onClick={()=>router.push("/brand-home")}> 
+ <img className="lg:w-16 lg:h-16 w-12 h-12 rounded-full" src={image} alt="profile" /> 
+ <p className="text-white text-lg lg:block hidden">{userName}</p>
+</div> :  <Link href="/login">
             <CmnButton className=" py-3 px-8 rounded-xl font-medium">Login</CmnButton>
           </Link>
+          }
+         
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { Building2, Phone, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
 import React from 'react'; 
 import { Form, Input, message } from "antd";
 import TextInput from "@/components/shared/TextInput";

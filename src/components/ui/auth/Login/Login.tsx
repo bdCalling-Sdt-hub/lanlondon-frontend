@@ -8,8 +8,8 @@ import { Checkbox, Form, Input } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
-import { FaFacebook } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
+// import { FaFacebook } from "react-icons/fa";
+// import { FcGoogle } from "react-icons/fc";
 import Swal from "sweetalert2";
 
 const Login = () => {
@@ -55,16 +55,16 @@ const Login = () => {
     <div className="grid grid-cols-1 md:grid-cols-2  bg-[#f9bdf5] " >
 
       <div>
-        <div className=" mb-6">
-          <h1 className="text-[48px] font-semibold mb-2 ">Join Us Now</h1>
-          <p className="text-[#262626] text-[32px] w-[450px]"> Create your campaign and boost your growth Faster</p>
+        <div className=" mb-6 lg:p-0 p-4">
+          <h1 className="lg:text-[48px] text-[32px] font-semibold mb-2 lg:block hidden ">Join Us Now</h1>
+          <p className="text-[#262626] lg:text-[32px] text-[24px] lg:w-[450px] lg:block hidden "> Create your campaign and boost your growth Faster</p>
 
-          <img src="/auth.png" alt="" className="h-[500px] w-[500px]" />
+          <img src="/auth.png" alt="" className="lg:h-[500px] lg:w-[500px] lg:block hidden" />
         </div>
       </div>
 
       <div>
-        <div className=" bg-white  rounded-lg w-[600px]  shadow-2xl p-[30px] pt-[55px] ">
+        <div className=" bg-white  rounded-lg lg:w-[600px]  shadow-2xl p-[30px] pt-[55px] ">
           <p className="text-[32px] font-semibold pb-4">Sign In</p>
           <Form
             onFinish={onFinish}
@@ -108,7 +108,7 @@ const Login = () => {
                 Forgot password
               </a>
             </div>
-
+{/* 
             <div className="w-full  space-y-4 mt-3">
               <button
                 className="w-full flex items-center justify-center gap-3 py-4 rounded-full  text-black border-2 border-black text-[20px] hover:text-white leading-6 font-medium shadow-sm hover:bg-black "
@@ -125,7 +125,7 @@ const Login = () => {
                 <span> <FaFacebook size={24} /></span>
                 <span>  Continue with Facebook </span>
               </button>
-            </div>
+            </div> */}
 
             <Form.Item style={{ marginBottom: 0 }}>
             <button 
@@ -139,7 +139,7 @@ const Login = () => {
 
           </Form>
 
-          <div className=" flex items-center justify-center gap-1 py-4">
+          <div className=" flex lg:flex-row flex-col items-center justify-center gap-1 py-4">
             <p className="text-[#636363]">Don’t have any account?</p>
             <Link href="/register" className="text-[#1854F9] font-semibold underline underline-offset-4" > Create Account</Link>
           </div>

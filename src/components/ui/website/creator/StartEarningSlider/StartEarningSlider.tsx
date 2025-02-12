@@ -32,14 +32,14 @@ const testimonials = [
 
 const StartEarningSlider = () => {   
     return (
-      <div className={`${urbanist.className} w-full `}> 
-      <section className="creatorSliderBannerBg h-[739px] flex items-center "> 
+      <div className={`${urbanist.className} w-full lg:p-0 p-4`}> 
+      <section className="creatorSliderBannerBg lg:h-[739px] flex items-center "> 
   <div className="container mx-auto bg-white  flex flex-col justify-center border-2 border-gray-300 rounded-2xl py-[30px] "> 
 
-    <h2 className="text-center text-xl md:text-[32px] font-semibold mb-8 leading-10">
-      Our goal is to provide good opportunities for
-      <br />
-      the Content creator to start earning
+    <h2 className="text-center text-xl md:text-[32px] font-semibold mb-8 leading-10 lg:flex lg:flex-col  items-center ">
+    <span>  Our goal is to provide good opportunities for </span> 
+      
+    <span>  the Content creator to start earning </span> 
     </h2>
 
     <div className="relative">
@@ -50,7 +50,7 @@ const StartEarningSlider = () => {
         pagination={{
           clickable: true,
         }}
-        className="relative px-4" 
+        className="relative lg:px-4 px-2" 
 
         navigation={{
           prevEl: '.swiper-button-prev',  
@@ -59,7 +59,7 @@ const StartEarningSlider = () => {
       >
         {testimonials.map((testimonial, index) => (
           <SwiperSlide key={index}>
-            <div className="bg-purple-50 rounded-xl p-6 md:p-8 ">
+            <div className="bg-purple-50 rounded-xl p-4 md:p-8 ">
               <div className="flex flex-col md:flex-row gap-6 items-start relative">
                 <div className="w-full md:w-1/3">
                   {testimonial.video ? (
@@ -72,12 +72,12 @@ const StartEarningSlider = () => {
                     <img
                       src={testimonial.image || "/placeholder.svg"}
                       alt=""
-                      className="w-full rounded-lg  h-[320px] object-cover"
+                      className="w-full rounded-lg  lg:h-[320px] h-[250px] object-cover"
                     />
                   )}
                 </div>
                 <div className="w-full md:w-2/3">
-                  <div className="flex items-center gap-2 mb-5"> 
+                  <div className="flex items-center gap-2 lg:mb-5 pb-3"> 
                     <img src="/img1.webp" className="w-[64px] h-[64px] rounded-full object-cover" alt="" /> 
 
                     <div  className="flex flex-col gap-1">
@@ -85,10 +85,10 @@ const StartEarningSlider = () => {
                     <p className="text-gray-600">{testimonial.title}</p>
                     </div>
                   </div>
-                  <p className="text-gray-700 mb-4 text-[18px] font-semibold leading-relaxed w-3/4">
+                  <p className="text-gray-700 mb-4 lg:text-[18px] text-[16px] font-semibold leading-relaxed lg:w-3/4 w-full">
                    &quot; {testimonial.quote} &quot;
                   </p>
-                  <p className="text-[16px] text-gray-600 absolute bottom-4">{testimonial.metadata}</p>
+                  <p className="text-[16px] text-gray-600 lg:absolute lg:bottom-4">{testimonial.metadata}</p>
                 </div>
               </div>
             </div>

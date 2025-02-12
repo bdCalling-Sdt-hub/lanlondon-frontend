@@ -17,7 +17,7 @@ export default function BusinessInfo() {
     const [imgUrl , setImgUrl] =useState<string | null>()    
     const [createBusinessInfo , {isLoading ,  error , data ,  isSuccess , isError}] = useCreateBusinessInfoMutation(); 
     const {data:businessInfo } = useGetBusinessInfoQuery(undefined); 
-  console.log(businessInfo);
+  // console.log(businessInfo);
 
     const handleChange = (e) => { 
       const file = e.target.files[0]
@@ -78,9 +78,7 @@ export default function BusinessInfo() {
         formData.append(key, value);
       })
 
-      await createBusinessInfo(formData).then((res)=>{
-        console.log(res);
-      })
+      await createBusinessInfo(formData)
     };
 
   return (

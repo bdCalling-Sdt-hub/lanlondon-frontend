@@ -18,7 +18,7 @@ const UserProfile = () => {
     const {data:userProfile , refetch} = useBrandProfileQuery(undefined)  
     const [updateProfile , {isLoading , isSuccess , isError , error , data}] = useUpdateProfileMutation() 
 
-    console.log(userProfile);
+    // console.log(userProfile);
 
 
     useEffect(() => {

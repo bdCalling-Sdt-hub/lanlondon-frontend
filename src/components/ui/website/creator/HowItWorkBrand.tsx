@@ -60,7 +60,7 @@ const HowItWorkBrand = () => {
                 <div className="container">
                     <div className="mx-auto">
                         <div className="text-center mb-6">
-                            <p className="font-bold text-[40px] text-[#212121]"> How It Works for Brands </p>
+                            <p className="font-bold lg:text-[40px] text-[30px] text-[#212121]"> How It Works for Brands </p>
                         </div>
 
                         <div className="relative">
@@ -82,7 +82,7 @@ const HowItWorkBrand = () => {
                                                     <div className="w-[60px] h-[60px] text-[20px] rounded-full bg-[#7A00F1] flex items-center justify-center border-[6px] border-[#caa6e2] text-white font-semibold">
                                                         {step.number}
                                                     </div>
-                                                    <h3 className="text-[24px] font-semibold lg:w-[400px]">{step.title}</h3>
+                                                    <h3 className="lg:text-[24px] text-[22px] font-semibold lg:w-[400px]">{step.title}</h3>
                                                 </div>
                                                 <p className={`text-[#767676] text-[16px] w-[90%] lg:w-[500px] lg:ps-20 ${index % 2 === 0 ? 'lg:ps-20 lg:pe-0' : 'lg:pe-10 lg:ps-0'}`}>
                                                     {step.description}

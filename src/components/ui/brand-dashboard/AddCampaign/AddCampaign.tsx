@@ -22,7 +22,7 @@ const AddCampaign = () => {
   const [createCampaign, { isLoading, error, data, isSuccess, isError }] = useCreateCampaignMutation()
   const [updateCampaign] = useUpdateCampaignMutation()
   const { data: getCampaignData, refetch } = useGetCampaignQuery(undefined)
-  console.log(getCampaignData);
+  // console.log(getCampaignData);
   const router = useRouter()
 
   useEffect(() => {
@@ -168,7 +168,7 @@ const {target_age ,startDate , endDate , submission_date, ...otherValues  } = va
       submission_date: submission_date,
     }; 
 
-    console.log("dfdas" ,data);
+    // console.log("dfdas" ,data);
 
     Object.entries(data).forEach(([key, value]) => {
       formData.append(key, value);

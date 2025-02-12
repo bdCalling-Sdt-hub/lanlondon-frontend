@@ -47,7 +47,7 @@ export default function BigCalendar() {
       };
       // setEvents([...events, newEvent]); 
       await makeNotes(newEvent).then((res) => {
-        console.log(res); 
+        // console.log(res); 
         if(res?.data?.success){
           message.success(res?.data?.message)  
           refetch()

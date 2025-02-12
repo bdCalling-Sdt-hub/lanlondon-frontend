@@ -7,7 +7,7 @@ import moment from 'moment';
 const Notifications = () => {
     const [page, setPage] = useState(1)  
     const {data} = useGetNotificationQuery(page) 
-    console.log(data);
+    // console.log(data);
 
     return (
         <div>

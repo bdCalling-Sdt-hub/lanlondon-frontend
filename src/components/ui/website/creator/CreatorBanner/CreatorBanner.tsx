@@ -4,7 +4,7 @@ import "./CreatorStyle.css"
 const urbanist = Urbanist({ subsets: ['latin'], weight: '400' });
 const CreatorBanner = () => {
     return (
-        <div className={ `${urbanist.className} bg-[#f2e6fe]  h-[calc(100vh-80px)] flex items-center justify-start   `}>  
+        <div className={ `${urbanist.className} bg-[#f2e6fe]  h-[calc(100vh-80px)] flex items-center justify-start  lg:pt-0 pt-8  `}>  
         <div className='container flex lg:flex-row flex-col items-center h-full lg:relative '> 
             <div className='lg:w-[80%] '> 
 
@@ -20,16 +20,16 @@ const CreatorBanner = () => {
                 </div>
 
        
-       <p className='text-[#2A2A2A] text-[42px] font-bold leading-snug mb-5 '> 
+       <p className='text-[#2A2A2A] lg:text-[42px] text-[30px] font-bold leading-snug lg:mb-5 mb-2 '> 
        Get Brand Deals & Promotions by Your Trusted Platform.
        </p> 
 
-       <p className='text-[#545454] text-[20px] font-medium '> 
+       <p className='text-[#545454] lg:text-[20px] text-[16px] font-medium mb-4 '> 
        Join our trusted platform to amplify your brand’s reach and connect with the right audience. With proven campaigns and reliable partnerships, we ensure maximum impact for your participation. Let’s achieve success together!
        </p>
        
        <div className='lg:absolute lg:bottom-16 '> 
- <img src="/footerIcon.png" alt="" className='w-auto h-[50px]' />
+ <img src="/footerIcon.png" alt="" className='w-auto lg:h-[50px] h-[40px]' />
        </div>
             </div> 
 

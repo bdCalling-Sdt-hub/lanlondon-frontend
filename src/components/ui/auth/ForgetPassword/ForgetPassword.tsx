@@ -46,7 +46,7 @@ const ForgetPassword = () => {
     }
   
     return (
-        <div className="bg-white rounded-lg shadow-2xl p-[30px] pt-[55px] w-[600px] ">
+        <div className="bg-white rounded-lg shadow-2xl p-[30px] pt-[55px] lg:w-[600px] ">
 
         <div className="text-center mb-4">
           <h1 className="text-[25px] font-semibold ">Forgot Password ?</h1>

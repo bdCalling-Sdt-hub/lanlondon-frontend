@@ -41,9 +41,7 @@ const AddFundsModal = ({ open, setOpen }: { open: boolean, setOpen: (value: bool
     const data = {
       amount: parseInt(values.amount)
     }
-    await createRecharge(data).then((res) => {
-      console.log(res);
-    })
+    await createRecharge(data)
    
   };
 

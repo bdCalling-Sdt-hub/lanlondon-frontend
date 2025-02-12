@@ -14,7 +14,7 @@ function ToDo() {
   const { data: AllTodos, refetch } = useGetTodoQuery(undefined);
   const [deleteTodo] = useDeleteTodoMutation() 
   const [updateTodo] = useUpdateTodoMutation()
-  console.log(AllTodos);
+  // console.log(AllTodos);
 
   const todos = AllTodos?.map((todo: { _id: string, subject: string, details: string, important: boolean }) => ({
     id: todo?._id,

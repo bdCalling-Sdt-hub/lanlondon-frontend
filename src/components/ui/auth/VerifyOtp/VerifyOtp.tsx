@@ -52,7 +52,7 @@ const VerifyOtp = () => {
   }
 
   const onFinish = async(values: { otp: string}) => {
-    // //console.log(values); 
+    // //// console.log(values); 
     const data = {
       email: email,
       oneTimeCode: parseInt(values?.otp)
@@ -92,7 +92,7 @@ const VerifyOtp = () => {
   };  
 
     return (
-        <div className="bg-white rounded-lg shadow-2xl p-[30px] pt-[55px] w-[600px]">
+        <div className="bg-white rounded-lg shadow-2xl p-[30px] pt-[55px] lg:w-[600px]">
 
         <div className=" mb-6">
           <h1 className="text-[25px] font-semibold mb-4 text-black text-center ">Verification code</h1>

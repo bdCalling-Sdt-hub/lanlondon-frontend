@@ -12,7 +12,7 @@ const urbanist = Urbanist({ subsets: ["latin"], weight: ["400", "500", "600", "7
 const FAQ = () => {
   const { data: allFaqs } = useGetFaqQuery(undefined)
   const { token } = theme.useToken();
-  console.log(allFaqs);
+  // console.log(allFaqs);
 
   const getItems = () =>
     allFaqs?.map((faq:{question:string,answer:string,_id:string}) => ({

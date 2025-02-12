@@ -6,7 +6,7 @@ import { useGetPrivacyQuery } from '@/redux/features/website/footer';
 const urbanist = Urbanist({ weight: ['400', '500', '600', '700'], subsets: ['latin'] }); 
 const Privacy = () => { 
     const {data:privacy} = useGetPrivacyQuery(undefined) 
-    console.log(privacy);
+    // console.log(privacy);
     return (
         <div  style={{
             backgroundImage: `url('/banner.svg')`,

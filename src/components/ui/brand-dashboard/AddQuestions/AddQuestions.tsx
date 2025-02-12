@@ -56,11 +56,9 @@ const AddQuestions = () => {
   }; 
 
   const handleSubmitQuestions = async() => {
-    console.log(questions); 
+    // console.log(questions); 
 
-    await createQuestions({questions , campaign: id}).unwrap().then((res) => {
-      console.log(res);
-    }) 
+    await createQuestions({questions , campaign: id}).unwrap()
   };
 
   return (

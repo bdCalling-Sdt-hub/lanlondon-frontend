@@ -6,7 +6,7 @@ import { useGetAboutQuery } from '@/redux/features/website/footer';
 const urbanist = Urbanist({ weight: ['400', '500', '600', '700'], subsets: ['latin'] }); 
 const About = () => { 
     const {data:about} = useGetAboutQuery(undefined) 
-    console.log(about);
+    // console.log(about);
     return (
         <div  style={{
             backgroundImage: `url('/banner.svg')`,
