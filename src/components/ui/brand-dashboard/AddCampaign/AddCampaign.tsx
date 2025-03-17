@@ -9,7 +9,6 @@ import { useCreateCampaignMutation, useGetCampaignQuery, useUpdateCampaignMutati
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import { imageUrl } from "@/redux/base/baseApi";
-import { Check } from "lucide-react";
 import Checkbox from "antd/es/checkbox/Checkbox";
 const { TextArea } = Input
 
