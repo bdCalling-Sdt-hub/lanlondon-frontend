@@ -9,6 +9,8 @@ import { useCreateCampaignMutation, useGetCampaignQuery, useUpdateCampaignMutati
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import { imageUrl } from "@/redux/base/baseApi";
+import { Check } from "lucide-react";
+import Checkbox from "antd/es/checkbox/Checkbox";
 const { TextArea } = Input
 
 
@@ -295,12 +297,30 @@ const {target_age ,startDate , endDate , submission_date, ...otherValues  } = va
 
                     {/* Number of Budget */}
                     <Form.Item
-                      label={<p className="text-[#666666] text-[14px]">Campaign Budget £</p>}
+                      label={
+                      <div> 
+                        <p className="text-[#666666] text-[14px]">Campaign Budget £ </p> 
+                       
+                        </div>}
                       name="budget"
                       rules={[{ required: true, message: "Budget is required!" }]}
                     >
-                      <Input className="h-[45px]" style={{ backgroundColor: "#F5F5F5" }} />
-                    </Form.Item>
+                      <Input className="h-[45px]" style={{ backgroundColor: "#F5F5F5" }} /> 
+                      <p className="pt-2"> <Checkbox/> Gift Only (Flat Fee £500 per gift)</p>
+                    </Form.Item> 
+
+                    <Form.Item
+                          label={<p className="text-[#666666] text-[14px]">Number of Gifts Available</p>}
+                          name="gift"
+                          rules={[{ required: true, message: "Gift is required!" }]}
+                        >
+                            <Input
+                            // value={hashtag}
+                      type="number"
+                            className="h-[45px] mb-2"
+                            style={{ backgroundColor: "#F5F5F5" }}
+                          />
+                        </Form.Item>
 
                     {/* Hashtags & Tags */}
                     <div>

@@ -119,7 +119,7 @@ export default function Details() {
         </div>
         <div className="flex gap-2">
           <button className="px-4 py-2 text-sm border border-black text-black rounded-md hover:bg-black hover:text-white" onClick={() => handleFavorite(details?.influencer?._id)} >
-            Add to Favorite
+            Favorite This Creator
           </button>
 
           <div
@@ -185,14 +185,14 @@ export default function Details() {
           </div>
 
           <div className=" w-1/2 border border-gray-300 rounded-xl mb-6 p-5 ">
-            <p className="text-[24px] font-semibold flex items-center justify-between"> <span>  Creator Fee :  </span> <span> {details?.budget} </span> </p>
-            <p className="text-[24px] font-semibold flex items-center justify-between pb-2"> <span> Admin Fee (25 %) : </span>  <span>{(details?.budget ?? 0) * 0.25} </span>   </p>
-            <p className="text-[24px] font-semibold flex items-center justify-between border-t-[1px] pt-2 border-gray-300 mb-3 "> <span> Total : </span> <span> { (details?.budget) + ((details?.budget ?? 0) * 0.25) } </span>   </p>
+            <p className="text-[24px] font-semibold flex items-center justify-between"> <span>  Creator Fee :  </span> <span>  £ {details?.budget} </span> </p>
+            <p className="text-[24px] font-semibold flex items-center justify-between pb-2"> <span> Admin Fee (25 %) : </span>  <span> £ {(details?.budget ?? 0) * 0.25} </span>   </p>
+            <p className="text-[24px] font-semibold flex items-center justify-between border-t-[1px] pt-2 border-gray-300 mb-3 "> <span> Total : </span> <span>  £ { (details?.budget) + ((details?.budget ?? 0) * 0.25) } </span>   </p>
             <p ><Checkbox onChange={(e) => setChecked(e.target.checked)}> I accept the  <Link href={"/privacy"} target="_blank" className="text-blue-600 underline" > terms & conditions  </Link>  and agree to accept  the fee. </Checkbox> </p>
 
             <div className="flex justify-end gap-2 mt-2">
               <button className='text-[#FF3131] bg-[#ffd6d6] py-1 px-4 rounded-md disabled:cursor-not-allowed disabled:bg-[#FF3131]/50  '  onClick={() => handleDecline()}  > Decline</button>
-              <button className={`text-black bg-[#c1ff72] py-1 px-4 rounded-md disabled:cursor-not-allowed disabled:text-black/30 disabled:bg-[#c1ff72]/50  ${!checked && "cursor-not-allowed bg-[#c1ff72]/50 "}`} disabled={!checked} onClick={() => handleAccept()} > Accept</button>
+              <button className={`text-black bg-[#c1ff72] py-1 px-4 border border-black rounded-md disabled:cursor-not-allowed disabled:text-black/30 disabled:bg-[#c1ff72]/50  ${!checked && "cursor-not-allowed bg-[#c1ff72]/50 "}`} disabled={!checked} onClick={() => handleAccept()} > Accept</button>
             </div>
 
 

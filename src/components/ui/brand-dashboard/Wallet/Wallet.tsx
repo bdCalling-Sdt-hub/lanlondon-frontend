@@ -86,7 +86,7 @@ export default function Wallet() {
 
   // console.log(allBudget);
   return (
-    <div className="p-6  mx-auto relative">
+    <div className="p-6 min-h-[calc(100vh-120px)] mx-auto relative">
       <div className="   pb-4">
         <h2 className="text-xl font-semibold">Campaign Budget</h2>
       </div>
@@ -123,9 +123,9 @@ export default function Wallet() {
         />
       </div>
 
-      {/* <div className=" absolute bottom-0 left-0"> 
- <p className=""> For bank transfer , Please contact hello@ </p>
-      </div> */} 
+     <div className=" absolute bottom-0 left-1/2"> 
+ <p className=" text-red-800"> For Bank Transfer Please Email Hello@CreatorBriefs.com</p>
+      </div> 
       <AddFundsModal open={open} setOpen={setOpen} />
     </div>
   )
